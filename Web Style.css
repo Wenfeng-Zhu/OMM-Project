@@ -6,21 +6,23 @@
 
 #slideShowImages {
     display: grid;
-    grid-template-columns: 50% 50%;
     grid-template-rows: 95% 5%;
 
 }
 #imageArea{
-    grid-column-start: 1;
-    grid-column-end: span 2;
-    justify-content: center;
+}
+
+#buttonArea{
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
 
 #editArea {
     display: grid;
 }
 
-.inputText{
+#inputText{
+    display: grid;
     background-color: cornflowerblue;
 }
 
