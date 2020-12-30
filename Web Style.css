@@ -1,0 +1,36 @@
+#container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+
+#slideShowImages {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 95% 5%;
+
+}
+#imageArea{
+    grid-column-start: 1;
+    grid-column-end: span 2;
+    justify-content: center;
+}
+
+#editArea {
+    display: grid;
+}
+
+.inputText{
+    background-color: cornflowerblue;
+}
+
+.item-2{
+    background-color: chartreuse;
+}
+.item-3{
+    background-color: blue;
+}
+
+.item-4{
+    background-color: darkorchid;
+}
