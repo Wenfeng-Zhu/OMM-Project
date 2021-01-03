@@ -1,11 +1,15 @@
 #container {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 17.5% 30% 35% 17.5%;
+    grid-column-gap: 20px;
+    height: 950px;
 }
 
 
 #slideShowImages {
     display: grid;
+    grid-column-start: 2;
+    grid-column-end: 3;
     grid-template-rows: 95% 5%;
 
 }
@@ -21,18 +25,19 @@
     display: grid;
 }
 
+#textArea{
+    display: grid;
+    grid-template-rows: 80% 7.5% 7.5%;
+}
+
 #inputText{
     display: grid;
-    background-color: cornflowerblue;
+    grid-template-rows: repeat(auto-fill, 70px);
+}
+
+#addNewText{
 }
 
 .item-2{
     background-color: chartreuse;
-}
-.item-3{
-    background-color: blue;
-}
-
-.item-4{
-    background-color: darkorchid;
 }
