@@ -12,6 +12,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const numberOfImages = () => memesList.length;
     const inputBoxes = [];
     let displayTexts = [];
+    let titlecontent;
     let currentImageID = 1;
 
 
@@ -77,6 +78,7 @@ window.addEventListener('DOMContentLoaded', function () {
         input.type = 'text';
         input.value = 'inputText-title';
         texts.append(input);
+        titlecontent = input;
     }
 
     function createInputBoxes(i) {
@@ -98,18 +100,24 @@ window.addEventListener('DOMContentLoaded', function () {
     }
 
     function updateDisplay() {
+        var title = document.getElementById("title");
+        title.innerHTML= titlecontent.value;
         for (let i = 0; i < displayTexts.length; i++) {
             displayTexts[i].innerHTML = inputBoxes[i].value;
         }
     }
+
+    // function userURL(){
+
+    // }
 
     imageArea.append(displayImage);
     loadImageUrls();
     textInputTitle();
     createInputBoxes(0);
     createInputBoxes(1);
-    createDisplayText(0);
-    createDisplayText(1);
+    // createDisplayText(0);
+    // createDisplayText(1);
 
 
 })
