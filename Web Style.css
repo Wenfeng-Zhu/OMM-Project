@@ -1,6 +1,6 @@
 #container {
     display: grid;
-    grid-template-columns: 17.5% 30% 35% 17.5%;
+    grid-template-columns: 10% 40% 40% 10%;
     grid-column-gap: 20px;
     height: 950px;
 }
@@ -11,13 +11,20 @@
     grid-column-start: 2;
     grid-column-end: 3;
     grid-template-rows: 95% 5%;
+}
+
+
+#imageArea{
 
 }
-#imageArea{
-}
+
 
 #currentImageID{
-    text-align:left;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size: 1.5em;
+    font-weight:normal;
+    text-align:center;
+    color:#777;
 }
 
 #buttonArea{
@@ -36,7 +43,7 @@
 
 #inputText{
     display: inline-grid;
-    grid-template-columns: 80% 20% 20%;
+    grid-template-columns: 60% 20% 20%;
     grid-template-rows: repeat(auto-fill, 60px);
 }
 

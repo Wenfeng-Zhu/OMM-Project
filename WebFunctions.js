@@ -32,12 +32,12 @@ window.addEventListener('DOMContentLoaded', function () {
 
     preButton.addEventListener('click', function () {
         currentImageID = currentImageID == 0 ? numberOfImages() - 1 : currentImageID - 1;
-        showImageID.innerHTML=currentImageID +"/"+memesList.length;
+        showImageID.innerHTML = "Memes Templates (" + currentImageID + "/" + memesList.length + ")";
         showImage(currentImageID);
     });
     nextButton.addEventListener('click', function () {
         currentImageID = currentImageID == numberOfImages() - 1 ? 0 : currentImageID + 1;
-        showImageID.innerHTML=currentImageID +"/"+memesList.length;
+        showImageID.innerHTML = "Memes Templates (" + currentImageID + "/" + memesList.length + ")";
         showImage(currentImageID);
     });
     addNewText.addEventListener('click', function () {
@@ -67,7 +67,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     memesList[i] = result['data']['memes'][i];
                 }
                 showImage(0)
-                showImageID.innerHTML="1/"+memesList.length;
+                showImageID.innerHTML = "Memes Templates (1/" + memesList.length + ")";
             })
             .catch(error => console.log('error', error));
     }
