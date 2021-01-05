@@ -31,12 +31,12 @@
 
 #textArea{
     display: grid;
-    grid-template-rows: 90% 5% 5%;
+    grid-template-rows: 80% 10% 10%;
 }
 
 #inputText{
     display: inline-grid;
-    grid-template-columns: 50% 25% 25%;
+    grid-template-columns: 80% 20% 20%;
     grid-template-rows: repeat(auto-fill, 60px);
 }
 

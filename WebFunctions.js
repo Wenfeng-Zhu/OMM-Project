@@ -11,6 +11,8 @@ window.addEventListener('DOMContentLoaded', function () {
     const areaWidth = imageArea.offsetWidth;
     const numberOfImages = () => memesList.length;
     const inputBoxes = [];
+    const inputXOffsets = [];
+    const inputYOffsets = [];
     let displayTexts = [];
     let currentImageID = 1;
 
@@ -70,6 +72,7 @@ window.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.log('error', error));
     }
 
+    /*create title input for memes*/
     function textInputTitle() {
         let input = document.createElement('input');
         input.id = 'inputText-title';
@@ -90,6 +93,7 @@ window.addEventListener('DOMContentLoaded', function () {
         texts.append(yoffset);
     }
 
+    /*create text input for memes*/
     function createInputBoxes(i) {
         let input = document.createElement('input');
         input.height = 50;
@@ -99,12 +103,25 @@ window.addEventListener('DOMContentLoaded', function () {
         texts.append(input);
         inputBoxes[i] = input;
 
+        let xoffset = document.createElement('input');
+        xoffset.id = 'inputText-' + (i+1) + '_x';
+        xoffset.type = 'number';
+        xoffset.placeholder = 'X Offset';
+        texts.append(xoffset);
+        inputXOffsets[i] = xoffset;
+
+        let yoffset = document.createElement('input');
+        yoffset.id = 'inputText-' + (i+1) + '_y';
+        yoffset.type = 'number';
+        yoffset.placeholder = 'Y Offset';
+        texts.append(yoffset);
+        inputYOffsets[i] = yoffset;
     }
 
     function createDisplayText(i) {
         let displayText = document.createElement('text');
         displayText.id = 'displayText-' + (i+1);
-        displayTexts[i]=displayText;
+        displayTexts[i] = displayText;
         imageArea.append(displayTexts[i]);
     }
 
