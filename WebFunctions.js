@@ -72,11 +72,22 @@ window.addEventListener('DOMContentLoaded', function () {
 
     function textInputTitle() {
         let input = document.createElement('input');
-        input.height = 50;
         input.id = 'inputText-title';
         input.type = 'text';
-        input.value = 'inputText-title';
+        input.placeholder = "Meme's title"
         texts.append(input);
+
+        let xoffset = document.createElement('input');
+        xoffset.id = 'inputText-title_x';
+        xoffset.type = 'number';
+        xoffset.placeholder = 'X Offset';
+        texts.append(xoffset);
+
+        let yoffset = document.createElement('input');
+        yoffset.id = 'inputText-title_y';
+        yoffset.type = 'number';
+        yoffset.placeholder = 'Y Offset';
+        texts.append(yoffset);
     }
 
     function createInputBoxes(i) {
@@ -84,7 +95,7 @@ window.addEventListener('DOMContentLoaded', function () {
         input.height = 50;
         input.id = 'inputText-' + (i+1);
         input.type = 'text';
-        input.value = 'inputText-' + (i+1);
+        input.placeholder = 'inputText-' + (i+1);
         texts.append(input);
         inputBoxes[i] = input;
 
