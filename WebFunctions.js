@@ -7,12 +7,13 @@ window.addEventListener('DOMContentLoaded', function () {
     const applyButton = document.getElementById('apply');
     const displayImage = document.createElement('img');
     const showImageID = document.getElementById('currentImageID');
+    const saveButton = document.getElementById('save');
     const memesList = [];
     const areaWidth = imageArea.offsetWidth;
     const numberOfImages = () => memesList.length;
     const inputBoxes = [];
+    let numOfInput = 2;
     let displayTexts = [];
-    let titlecontent;
     let currentImageID = 1;
 
 
@@ -23,25 +24,16 @@ window.addEventListener('DOMContentLoaded', function () {
         displayImage.height = meme.height * areaWidth / meme.width;
     }
 
-    // function renderImage(url, width, height) {
-    //     displayImage.src = url;
-    //     displayImage.width = areaWidth;
-    //     displayImage.height = height * areaWidth / width;
-    // }
-
     preButton.addEventListener('click', function () {
         currentImageID = currentImageID == 0 ? numberOfImages() - 1 : currentImageID - 1;
-        showImageID.innerHTML=currentImageID +"/"+memesList.length;
         showImage(currentImageID);
     });
     nextButton.addEventListener('click', function () {
         currentImageID = currentImageID == numberOfImages() - 1 ? 0 : currentImageID + 1;
-        showImageID.innerHTML=currentImageID +"/"+memesList.length;
         showImage(currentImageID);
     });
     addNewText.addEventListener('click', function () {
         createInputBoxes(inputBoxes.length);
-
     });
     applyButton.addEventListener('click', function () {
         if (inputBoxes.length > displayTexts.length) {
@@ -50,11 +42,11 @@ window.addEventListener('DOMContentLoaded', function () {
                 createDisplayText(displayTexts.length);
             }
         }
-
         updateDisplay();
+    });
+    saveButton.addEventListener('click', function () {
 
-        //alert('test'+ ' '+ displayTexts[0].innerHTML);
-    })
+    });
 
 
     function loadImageUrls() {
@@ -66,7 +58,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     memesList[i] = result['data']['memes'][i];
                 }
                 showImage(0)
-                showImageID.innerHTML="1/"+memesList.length;
+                showImageID.innerHTML = "1/" + memesList.length;
             })
             .catch(error => console.log('error', error));
     }
@@ -78,46 +70,80 @@ window.addEventListener('DOMContentLoaded', function () {
         input.type = 'text';
         input.value = 'inputText-title';
         texts.append(input);
-        titlecontent = input;
     }
 
     function createInputBoxes(i) {
         let input = document.createElement('input');
         input.height = 50;
-        input.id = 'inputText-' + (i+1);
+        input.id = 'inputText-' + (i + 1);
         input.type = 'text';
-        input.value = 'inputText-' + (i+1);
+        input.value = 'inputText-' + (i + 1);
         texts.append(input);
         inputBoxes[i] = input;
-
     }
 
     function createDisplayText(i) {
         let displayText = document.createElement('text');
-        displayText.id = 'displayText-' + (i+1);
-        displayTexts[i]=displayText;
+        displayText.id = 'displayText-' + (i + 1);
+        displayText.style.position = 'absolute';
+        displayText.style.zIndex = '2';
+        displayText.style.top = (40 + 40 * i) + 'px';
+        displayText.style.left = 40 + 'px';
+        displayTexts[i] = displayText;
         imageArea.append(displayTexts[i]);
+
     }
 
     function updateDisplay() {
-        var title = document.getElementById("title");
-        title.innerHTML= titlecontent.value;
         for (let i = 0; i < displayTexts.length; i++) {
             displayTexts[i].innerHTML = inputBoxes[i].value;
         }
     }
 
-    // function userURL(){
-
-    // }
-
     imageArea.append(displayImage);
     loadImageUrls();
     textInputTitle();
-    createInputBoxes(0);
-    createInputBoxes(1);
-    // createDisplayText(0);
-    // createDisplayText(1);
+    for (let i = 0; i < numOfInput; i++) {
+        createInputBoxes(i);
+        createDisplayText(i);
+    }
+    updateDisplay();
+
+
+    let deltaLeft, deltaTop = 0;
+    for (let i = 0; i < displayTexts.length; i++) {
+        //displayTexts[i].cursor = 'move';
+        let move = displayTexts[i].draggable;
+        displayTexts[i].addEventListener('mouseover', function (e) {
+            displayTexts[i].style.cursor ='pointer';
+        });
+        displayTexts[i].addEventListener('mousedown', function (e) {
+            deltaLeft = e.clientX - e.target.offsetLeft;
+            deltaTop = e.clientY - e.target.offsetTop;
+            move = true;
+        });
+        imageArea.addEventListener('mousemove', function (e) {
+            if (move) {
+                const cx = e.clientX;
+                const cy = e.clientY;
+                let dx = cx - deltaLeft;
+                let dy = cy - deltaTop;
+                if (dx < 0)
+                    dx = 0;
+                if (dy < 0)
+                    dy = 0;
+                if (dx > (displayImage.offsetWidth - displayTexts[i].offsetWidth))
+                    dx = displayImage.offsetWidth - displayTexts[i].offsetWidth;
+                if (dy > (displayImage.offsetHeight - displayTexts[i].offsetHeight))
+                    dy = displayImage.offsetHeight - displayTexts[i].offsetHeight;
+                displayTexts[i].style.left = dx+'px';
+                displayTexts[i].style.top =dy+'px';
+            }
+        });
+        imageArea.addEventListener('mouseup',function (e) {
+           move = false;
+        });
+    }
 
 
 })
