@@ -8,6 +8,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const displayImage = document.createElement('img');
     const showImageID = document.getElementById('currentImageID');
     const saveButton = document.getElementById('save');
+    const viewProductsButton = document.getElementById('products');
     const memesList = [];
     const areaWidth = imageArea.offsetWidth;
     const numberOfImages = () => memesList.length;
@@ -47,6 +48,10 @@ window.addEventListener('DOMContentLoaded', function () {
     saveButton.addEventListener('click', function () {
 
     });
+
+    viewProductsButton.addEventListener('click', function(){
+        window.location.href='./test_overview.html';
+    })
 
 
     function loadImageUrls() {
