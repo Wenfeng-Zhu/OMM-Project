@@ -22,6 +22,26 @@ window.addEventListener('DOMContentLoaded', function () {
         displayImage.src = meme.url;
         displayImage.width = areaWidth;
         displayImage.height = meme.height * areaWidth / meme.width;
+
+        // 获取弹窗
+        var modal = document.getElementById('myModal');
+        
+        // 获取图片插入到弹窗 - 使用 "alt" 属性作为文本部分的内容
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        displayImage.onclick = function(){
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+        }
+        
+        // 获取 <span> 元素，设置关闭按钮
+        var span = document.getElementsByClassName("close")[0];
+        
+        // 当点击 (x), 关闭弹窗
+        span.onclick = function() {
+        modal.style.display = "none";
+}
     }
 
     preButton.addEventListener('click', function () {
@@ -58,7 +78,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     memesList[i] = result['data']['memes'][i];
                 }
                 showImage(0)
-                showImageID.innerHTML = "1/" + memesList.length;
+                // showImageID.innerHTML = "1/" + memesList.length;
             })
             .catch(error => console.log('error', error));
     }
