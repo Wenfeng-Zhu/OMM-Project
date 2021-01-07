@@ -36,7 +36,7 @@
 
 #textArea{
     display: grid;
-    grid-template-rows: 80% 7.5% 7.5%;
+    grid-template-rows: 70% 10% 10% 10%;
 }
 
 #inputText{
