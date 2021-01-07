@@ -30,29 +30,29 @@ window.addEventListener('DOMContentLoaded', function () {
         displayImage.onclick = function(){
             modal.style.display = "block";
             modalImg.src = displayImage.src;
-            captionText.innerHTML = displayImage.alt;
+            captionText.innerHTML = meme.name;
         }
          // 获取 <span> 元素，设置关闭按钮
          var span = document.getElementsByClassName("close")[0];
-         
+
          // 当点击 (x), 关闭弹窗
          span.onclick = function() {
          modal.style.display = "none";
         }
     }
 
-    function showsingleview(){
+    function showsingleview(num){
          // 获取图片插入到弹窗 - 使用 "alt" 属性作为文本部分的内容
-         
-         
+
+        let meme = memesList[num];
         modal.style.display = "block";
         modalImg.src = displayImage.src;
-        captionText.innerHTML = displayImage.alt;
-         
-         
+        captionText.innerHTML = meme.name;
+
+
          // 获取 <span> 元素，设置关闭按钮
          var span = document.getElementsByClassName("close")[0];
-         
+
          // 当点击 (x), 关闭弹窗
          span.onclick = function() {
          modal.style.display = "none";
@@ -62,13 +62,13 @@ window.addEventListener('DOMContentLoaded', function () {
     singleviewpreButton.addEventListener('click', function(){
         currentImageID = currentImageID == 0 ? numberOfImages() - 1 : currentImageID - 1;
         showImage(currentImageID);
-        showsingleview();
+        showsingleview(currentImageID);
     });
 
     singleviewnextButton.addEventListener('click', function(){
         currentImageID = currentImageID == numberOfImages() - 1 ? 0 : currentImageID + 1;
         showImage(currentImageID);
-        showsingleview();
+        showsingleview(currentImageID);
     });
 
     preButton.addEventListener('click', function () {
