@@ -17,12 +17,8 @@ window.addEventListener('DOMContentLoaded', function () {
     let currentImageID = 1;
 
 
-    function showImage(num) {
-        let meme = memesList[num];
-        displayImage.src = meme.url;
-        displayImage.width = areaWidth;
-        displayImage.height = meme.height * areaWidth / meme.width;
-    }
+
+
 
     preButton.addEventListener('click', function () {
         currentImageID = currentImageID == 0 ? numberOfImages() - 1 : currentImageID - 1;
@@ -48,8 +44,27 @@ window.addEventListener('DOMContentLoaded', function () {
 
     });
 
+    const importFile = document.getElementById('importFile');
+    importFile.addEventListener('change',function (event){
+        let files = event.target.files;
+        if (files[0].type !== 'image/png' && files[0].type !== 'image/jpeg' && files[0].type !== 'image/gif'){
+            alert('Incorrect file format, please select PNG, JPEG or GIF format!!');
+        }
+        else {
+            displayImage.src = window.URL.createObjectURL(files[0]);
+        }
 
-    function loadImageUrls() {
+    })
+
+
+    function showImage(num) {
+        let meme = memesList[num];
+        displayImage.src = meme.url;
+        displayImage.width = areaWidth;
+        displayImage.height = meme.height * areaWidth / meme.width;
+    }
+
+    function loadImages() {
         // TODO load meme template images from the Imgflip API
         fetch("https://api.imgflip.com/get_memes")
             .then(response => response.json())
@@ -100,8 +115,12 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+
+
+
+
     imageArea.append(displayImage);
-    loadImageUrls();
+    loadImages();
     textInputTitle();
     for (let i = 0; i < numOfInput; i++) {
         createInputBoxes(i);
