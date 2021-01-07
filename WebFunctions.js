@@ -10,9 +10,13 @@ window.addEventListener('DOMContentLoaded', function () {
     const displayImage = document.createElement('img');
     const showImageID = document.getElementById('currentImageID');
     const saveButton = document.getElementById('save');
+<<<<<<< HEAD
     const modal = document.getElementById('myModal');// 获取弹窗
     const modalImg = document.getElementById("img01");
     const captionText = document.getElementById("caption");
+=======
+    const viewProductsButton = document.getElementById('products');
+>>>>>>> master
     const memesList = [];
     const areaWidth = imageArea.offsetWidth;
     const numberOfImages = () => memesList.length;
@@ -94,6 +98,10 @@ window.addEventListener('DOMContentLoaded', function () {
     saveButton.addEventListener('click', function () {
 
     });
+
+    viewProductsButton.addEventListener('click', function(){
+        window.location.href='./test_overview.html';
+    })
 
 
     function loadImageUrls() {
