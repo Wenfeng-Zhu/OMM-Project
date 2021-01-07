@@ -3,11 +3,16 @@ window.addEventListener('DOMContentLoaded', function () {
     const texts = document.getElementById('inputText')
     const preButton = document.getElementById('preButton');
     const nextButton = document.getElementById('nextButton');
+    const singleviewpreButton = document.getElementById('modalpreButton');
+    const singleviewnextButton = document.getElementById('modalnextButton');
     const addNewText = document.getElementById('addNewText');
     const applyButton = document.getElementById('apply');
     const displayImage = document.createElement('img');
     const showImageID = document.getElementById('currentImageID');
     const saveButton = document.getElementById('save');
+    const modal = document.getElementById('myModal');// 获取弹窗
+    const modalImg = document.getElementById("img01");
+    const captionText = document.getElementById("caption");
     const viewProductsButton = document.getElementById('products');
     const memesList = [];
     const areaWidth = imageArea.offsetWidth;
@@ -23,7 +28,49 @@ window.addEventListener('DOMContentLoaded', function () {
         displayImage.src = meme.url;
         displayImage.width = areaWidth;
         displayImage.height = meme.height * areaWidth / meme.width;
+        displayImage.onclick = function(){
+            modal.style.display = "block";
+            modalImg.src = displayImage.src;
+            captionText.innerHTML = meme.name;
+        }
+         // 获取 <span> 元素，设置关闭按钮
+         var span = document.getElementsByClassName("close")[0];
+
+         // 当点击 (x), 关闭弹窗
+         span.onclick = function() {
+         modal.style.display = "none";
+        }
     }
+
+    function showsingleview(num){
+         // 获取图片插入到弹窗 - 使用 "alt" 属性作为文本部分的内容
+
+        let meme = memesList[num];
+        modal.style.display = "block";
+        modalImg.src = displayImage.src;
+        captionText.innerHTML = meme.name;
+
+
+         // 获取 <span> 元素，设置关闭按钮
+         var span = document.getElementsByClassName("close")[0];
+
+         // 当点击 (x), 关闭弹窗
+         span.onclick = function() {
+         modal.style.display = "none";
+        }
+    }
+
+    singleviewpreButton.addEventListener('click', function(){
+        currentImageID = currentImageID == 0 ? numberOfImages() - 1 : currentImageID - 1;
+        showImage(currentImageID);
+        showsingleview(currentImageID);
+    });
+
+    singleviewnextButton.addEventListener('click', function(){
+        currentImageID = currentImageID == numberOfImages() - 1 ? 0 : currentImageID + 1;
+        showImage(currentImageID);
+        showsingleview(currentImageID);
+    });
 
     preButton.addEventListener('click', function () {
         currentImageID = currentImageID == 0 ? numberOfImages() - 1 : currentImageID - 1;
@@ -63,7 +110,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     memesList[i] = result['data']['memes'][i];
                 }
                 showImage(0)
-                showImageID.innerHTML = "1/" + memesList.length;
+                // showImageID.innerHTML = "1/" + memesList.length;
             })
             .catch(error => console.log('error', error));
     }
