@@ -1,176 +1,238 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>Overview</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <title>Overview</title>
 
-<script type="text/javascript">
-	if(typeof(pyzy)=='undefined'){
-		var pyzy={};  //èµ·ç”¨å°è£…æ–¹æ³•åç§°ï¼Œé¿å…è„šæœ¬å‘½åæ±¡æŸ“
-		pyzy.$ = function(fctId) { return document.getElementById(fctId); };
-	}
-	pyzy.ColorText=function(fctText,fctTop,fctLeft,fctBold,Color,bgColor,FontSize){
-		var varZBT=(fctTop-fctBold/2);
-		var varZBL=(fctLeft-fctBold/2);
-		var varWriteText="";
-		for(var i=1;i<fctBold;i++){
-			for(var j=1;j<fctBold;j++){
-				varWriteText=varWriteText+'<div style="position:absolute;z-index:98;margin:'+(varZBT+i)+'px '+(varZBL+j)+'px;color:'+bgColor+';font-size:'+FontSize+'px;">'+fctText+'</div>';
-			}
-		}
-		return varWriteText+'<div style="position:absolute;z-index:98;margin:'+fctTop+'px '+fctLeft+'px;color:'+Color+';font-size:'+FontSize+'px;">'+fctText+'</div>';
-	}
+    <script type="text/javascript">
+        if (typeof (pyzy) == 'undefined') {
+            var pyzy = {};  //ÆğÓÃ·â×°·½·¨Ãû³Æ£¬±ÜÃâ½Å±¾ÃüÃûÎÛÈ¾
+            pyzy.$ = function (fctId) {
+                return document.getElementById(fctId);
+            };
+        }
+        pyzy.ColorText = function (fctText, fctTop, fctLeft, fctBold, Color, bgColor, FontSize) {
+            var varZBT = (fctTop - fctBold / 2);
+            var varZBL = (fctLeft - fctBold / 2);
+            var varWriteText = "";
+            for (var i = 1; i < fctBold; i++) {
+                for (var j = 1; j < fctBold; j++) {
+                    varWriteText = varWriteText + '<div style="position:absolute;z-index:98;margin:' + (varZBT + i) + 'px ' + (varZBL + j) + 'px;color:' + bgColor + ';font-size:' + FontSize + 'px;">' + fctText + '</div>';
+                }
+            }
+            return varWriteText + '<div style="position:absolute;z-index:98;margin:' + fctTop + 'px ' + fctLeft + 'px;color:' + Color + ';font-size:' + FontSize + 'px;">' + fctText + '</div>';
+        }
 
-	pyzy.MinImgsBox = {
-		intImgId: 0, //é»˜è®¤å›¾ç‰‡ID
-		arrImgs: [["å›¾ç‰‡åç§°", "å¤§å›¾è·¯å¾„", "å°å›¾è·¯å¾„"]], //å›¾ç‰‡æ•°æ®
-		objMaxImgBoxObj: null, //å¤§å›¾ç‰‡å®¹å™¨
-		objMinImgBoxObj: null,  //å°å›¾ç‰‡å®¹å™¨
-		objMinImgObj: null,     //å½“å‰æ­£åœ¨æ’­æ”¾çš„å°å›¾çš„IMGå¯¹è±¡ï¼Œç”¨äºæ ¡å¯¹å°å›¾å®¹å™¨çš„æ»šåŠ¨æ¡ä½ç½®ç­‰
-		objPlayRateObj: null,  //æ’­æ”¾è¿›åº¦å¯¹è±¡
-		/* Init ç´¢å¼•æ–¹æ³•ï¼š
-		@ fctArrImgs       å›¾ç‰‡ä¿¡æ¯æ•°æ®æ•°ç»„ å‚è§ arrImgs çš„æ ¼å¼*/
-		Init: function(fctArrImgs) {
-			this.arrImgs = fctArrImgs;  //å°†å›¾ç‰‡æ•°æ®å­˜å‚¨äºå˜é‡ä¸­
-			this.objMaxImgBoxObj = pyzy.$("divPyzyImgBoxContent"); //å°†å¤§å›¾ç‰‡å®¹å™¨å­˜å‚¨äºå˜é‡
-			this.objMinImgBoxObj = pyzy.$("divPyzyMinImgs");   //å°†å°å›¾ç‰‡å®¹å™¨å­˜å‚¨äºå˜é‡
-			this.objPlayRateObj = pyzy.$("divPyzyImgBoxRate"); //å°†æ’­æ”¾è¿›åº¦å¯¹è±¡å­˜å‚¨äºå˜é‡
-			var tmpMinImgsBoxHTML = []; //ä¸´æ—¶å°å›¾åˆ—è¡¨å­˜å‚¨
-			for (var intI = 0; intI < this.arrImgs.length; intI++) {
-				tmpMinImgsBoxHTML[tmpMinImgsBoxHTML.length] = "<img id='imgMinItem" + intI + "' onClick='pyzy.MinImgsBox.Show(" + intI + ")' alt='" + this.arrImgs[intI][0] + "' src='" + this.arrImgs[intI][2] + "' />"
-			}
-			this.objMinImgBoxObj.innerHTML = tmpMinImgsBoxHTML.join(""); //è¾“å‡ºå°å›¾åˆ—è¡¨åˆ°å®¹å™¨
-			this.Show(0); //é»˜è®¤æ˜¾ç¤ºç¬¬ä¸€ä¸ªå›¾ç‰‡
-		},
-		Show: function(fctId) {
-			if (this.arrImgs.length == 0) {
-				alert("ç¼ºå°‘å›¾ç‰‡æ•°æ®");
-				return;
-			}
-			//åˆ¤æ–­IDå¹¶çŸ«æ­£ä¸ºæ­£ç¡®ç¼–å·
-			fctId = (fctId < 0 ? this.arrImgs.length - 1 : (fctId >= this.arrImgs.length ? 0 : fctId));
-			//æ’­æ”¾è¿›åº¦
-			this.objPlayRateObj.title = "å…±[" + this.arrImgs.length + "]å¼ å›¾ç‰‡ï¼Œå½“å‰ä¸ºç¬¬[" + (fctId+1) + "]å¼ å›¾ç‰‡ï¼Œæ’­æ”¾è¿›åº¦ä¸º" + ((fctId + 1) / this.arrImgs.length * 100) + "%ã€‚";
-			this.objPlayRateObj.style.width = ((fctId + 1) / this.arrImgs.length * this.objPlayRateObj.parentNode.offsetWidth) + "px";
-			//å–å¾—å½“å‰æ’­æ”¾å›¾ç‰‡çš„å°å›¾å¯¹è±¡
-			this.objMinImgObj = pyzy.$("imgMinItem" + fctId)
-			//è°ƒæ•´å°å›¾ç‰‡å®¹å™¨æ»šåŠ¨æ¡ä½ç½®ï¼Œä½¿å¾—å½“å‰å›¾ç‰‡åœ¨å®¹å™¨çš„ä¸­é—´
-			pyzy.MinImgsScroll.Init(
-				this.objMinImgBoxObj,
-				(
-					(   //å…ˆé€šè¿‡å°å›¾ç‰‡å¯¹è±¡çš„å·¦è¾¹è·ä¸å¾—å‡ºå›¾ç‰‡ä¸å®¹å™¨å·¦è¾¹çš„è·ç¦»ï¼šå› ä¸ºIEç¯å¢ƒä¸‹çš„å…ƒç´ è¾¹è·æ˜¯ç›¸å¯¹äºçˆ¶å®¹å™¨çš„ã€è€Œç«ç‹ä¸‹æ˜¯ç›¸å¯¹äºçª—ä½“ï¼Œæ‰€ä»¥è¿™é‡Œç”¨åˆ°äº†æµè§ˆå™¨ç¯å¢ƒçš„
-						this.objMinImgObj.offsetLeft -
-						(navigator.appVersion.indexOf("MSIE") == -1 ? this.objMinImgObj.parentNode.offsetLeft:0)
-					) -  //å‡æ‰å›¾ç‰‡å®¹å™¨æ»šåŠ¨æ¡å·²ç»å·æ‰çš„ç›¸ç´ ï¼Œè¿™æ ·å–åˆ°çš„æ˜¯å¯ä»¥ä½¿å°å›¾ç‰‡å§‹ç»ˆå±…äºå®¹å™¨æœ€å·¦è¾¹çš„ï¼Œæ‰€ä»¥æ¥ä¸‹æ¥å‡æ‰å®¹å™¨ä¸€åŠçš„å®½åº¦ æ°å·§å°±å¯ä»¥ä½¿å°å›¾ç‰‡å±…äºå®¹å™¨ä¸­é—´
-					this.objMinImgBoxObj.scrollLeft
-					-
-					(this.objMinImgBoxObj.offsetWidth / 2)
-				 )
-			);
-			//è¾“å‡ºå›¾ç‰‡åç§°åˆ°å¤§å›¾ç‰‡å®¹å™¨
-			//this.objMaxImgBoxObj.innerHTML = pyzy.ColorText(this.arrImgs[fctId][0], 0, 0, 4, "#444;bottom:2px;right:10px", "#444;bottom:2px;right:10px", 12) + //pyzy.ColorText(this.arrImgs[fctId][0], 2, 2, 4, "#666;bottom:2px;right:10px", "#fff;bottom:2px;right:10px", 12);
-			//ç”¨å½“å‰å¤§å›¾ç‰‡è·¯å¾„æ›¿æ‰å¤§å›¾ç‰‡å®¹å™¨çš„èƒŒæ™¯
-			this.objMaxImgBoxObj.style.backgroundImage = "url(" + this.arrImgs[fctId][1] + ")";
-			//å–æ¶ˆå…ˆå‰çš„é»˜è®¤å›¾ç‰‡çš„é€‰ä¸­çŠ¶æ€
-			pyzy.$("imgMinItem" + this.intImgId).className = "";
-			//è®¾ç½®å…ˆå‰çš„é»˜è®¤å›¾ç‰‡ä¸ºæ ·å¼ä¸ºé€‰ä¸­çŠ¶æ€
-			this.objMinImgObj.className = "Sel";
-			this.intImgId = fctId;
-		}
-	};
-	//æ»šåŠ¨æ¡æ§åˆ¶æ–¹æ³•
-	pyzy.MinImgsScroll = {
-		intAllScrollSeep: 0, //æ­¥é•¿ï¼Œå•æ¬¡æ»šåŠ¨çš„å¹…åº¦
-		intScrollCount: 0,   //æ»šåŠ¨é•¿åº¦è®°å½• è®°å½•æŒ‰è±¡ç´ æ»šåŠ¨çš„é•¿åº¦ä¸æ­¥é•¿å¯¹æ¯” ç”¨ä»¥å®ç°åŠ¨æ€æ»šåŠ¨æ•ˆæœ
-		objScroll: null,     //è¦æ§åˆ¶å…¶æ»šåŠ¨æ¡çš„ç›®æ ‡å¯¹è±¡
-		boolLeft: true,      //æ»šåŠ¨æ¡ç±»å‹ï¼Œé»˜è®¤ä¸ºå·¦å³æ°´å¹³æ»šåŠ¨æ¡
-		/* Init ç´¢å¼•æ–¹æ³•ï¼š
-		@ (fctBoxObj) è¦æ§åˆ¶å…¶æ»šåŠ¨æ¡çš„ç›®æ ‡å¯¹è±¡,å¿…é¡»æŒ‡å®š
-		@ [fctSeep]   ç§»åŠ¨æ­¥é•¿ æŒ‰æ­£è´Ÿæ•°æ§åˆ¶å·¦å³æ»šåŠ¨[ä¸æŒ‡å®šåˆ™é»˜è®¤ä¸ºç›®æ ‡å¯¹è±¡çš„å®½åº¦(å¦‚æœæ˜¯å‚ç›´åˆ™ä¸ºå…¶é«˜åº¦)]
-		@ [fctTop]    æ»šåŠ¨æ¡ç±»å‹ é»˜è®¤Leftä¸ºå·¦å³æ°´å¹³æ»šåŠ¨æ¡,æ­¤å‚æ•°æŒ‡å®šä»»æ„å€¼åˆ™ä¸ºå‚ç›´æ»šåŠ¨æ¡ */
-		Init: function(fctObj, fctSeep, fctTop) {
-			this.objScroll = fctObj;
-			this.boolLeft = (fctTop == null);
-			this.intAllScrollSeep = (fctSeep == null ? (this.boolLeft ? this.objScroll.offsetWidth : this.objScroll.offsetHeight) : fctSeep);
-			//åˆ¤æ–­æ»šåŠ¨æ­¥é•¿å€¼ å¦‚æœä¸ºå½“å‰çŠ¶æ€çš„åæ–¹å‘ åˆ™å°†æ»šåŠ¨å¹…åº¦å–å
-			this.intSeep = ((this.intAllScrollSeep < 0 && this.intSeep > 0) || (this.intAllScrollSeep > 0 && this.intSeep < 0) ? -1 : 1) * this.intSeep;
-			this.intScrollCount = 0; //åˆå§‹åŒ–æ­¥é•¿æ‰§è¡Œè¿›åº¦ç»Ÿè®¡ä¸º0
-			this.AutoSeep();
-		},
-		intSeep: 5, //è‡ªåŠ¨æ»šåŠ¨æ—¶çš„å¹…åº¦ é»˜è®¤ä¸º10è±¡ç´ 
-		AutoSeep: function() {
-			if (Math.abs(this.intAllScrollSeep) > Math.abs(this.intScrollCount)) { //æ˜¯å¦å·²ç»å®Œæˆæ»šåŠ¨æ­¥é•¿
-				this.intScrollCount += this.intSeep;
-				if (this.boolLeft) { this.objScroll.scrollLeft += this.intSeep; }
-				else { this.objScroll.scrollTop += this.intSeep; }
-				window.setTimeout("pyzy.MinImgsScroll.AutoSeep();", 8); //8 æ¯«ç§’åç»§ç»­æ‰§è¡Œæ»šåŠ¨,ä¹Ÿå¯ä»¥æ›´æ”¹æ­¤å‚æ•°æ§åˆ¶æ»šåŠ¨æ—¶çš„é€Ÿåº¦
-			}
-		}
-	};
-</script>
+        pyzy.MinImgsBox = {
+            intImgId: 0, //Ä¬ÈÏÍ¼Æ¬ID
+            arrImgs: [["Í¼Æ¬Ãû³Æ", "´óÍ¼Â·¾¶", "Ğ¡Í¼Â·¾¶"]], //Í¼Æ¬Êı¾İ
+            objMaxImgBoxObj: null, //´óÍ¼Æ¬ÈİÆ÷
+            objMinImgBoxObj: null,  //Ğ¡Í¼Æ¬ÈİÆ÷
+            objMinImgObj: null,     //µ±Ç°ÕıÔÚ²¥·ÅµÄĞ¡Í¼µÄIMG¶ÔÏó£¬ÓÃÓÚĞ£¶ÔĞ¡Í¼ÈİÆ÷µÄ¹ö¶¯ÌõÎ»ÖÃµÈ
+            objPlayRateObj: null,  //²¥·Å½ø¶È¶ÔÏó
+            /* Init Ë÷Òı·½·¨£º
+            @ fctArrImgs       Í¼Æ¬ĞÅÏ¢Êı¾İÊı×é ²Î¼û arrImgs µÄ¸ñÊ½*/
+            Init: function (fctArrImgs) {
+                this.arrImgs = fctArrImgs;  //½«Í¼Æ¬Êı¾İ´æ´¢ÓÚ±äÁ¿ÖĞ
+                this.objMaxImgBoxObj = pyzy.$("divPyzyImgBoxContent"); //½«´óÍ¼Æ¬ÈİÆ÷´æ´¢ÓÚ±äÁ¿
+                this.objMinImgBoxObj = pyzy.$("divPyzyMinImgs");   //½«Ğ¡Í¼Æ¬ÈİÆ÷´æ´¢ÓÚ±äÁ¿
+                this.objPlayRateObj = pyzy.$("divPyzyImgBoxRate"); //½«²¥·Å½ø¶È¶ÔÏó´æ´¢ÓÚ±äÁ¿
+                var tmpMinImgsBoxHTML = []; //ÁÙÊ±Ğ¡Í¼ÁĞ±í´æ´¢
+                for (var intI = 0; intI < this.arrImgs.length; intI++) {
+                    tmpMinImgsBoxHTML[tmpMinImgsBoxHTML.length] = "<img id='imgMinItem" + intI + "' onClick='pyzy.MinImgsBox.Show(" + intI + ")' alt='" + this.arrImgs[intI][0] + "' src='" + this.arrImgs[intI][2] + "' />"
+                }
+                this.objMinImgBoxObj.innerHTML = tmpMinImgsBoxHTML.join(""); //Êä³öĞ¡Í¼ÁĞ±íµ½ÈİÆ÷
+                this.Show(0); //Ä¬ÈÏÏÔÊ¾µÚÒ»¸öÍ¼Æ¬
+            },
+            Show: function (fctId) {
+                if (this.arrImgs.length == 0) {
+                    alert("È±ÉÙÍ¼Æ¬Êı¾İ");
+                    return;
+                }
+                //ÅĞ¶ÏID²¢½ÃÕıÎªÕıÈ·±àºÅ
+                fctId = (fctId < 0 ? this.arrImgs.length - 1 : (fctId >= this.arrImgs.length ? 0 : fctId));
+                //²¥·Å½ø¶È
+                this.objPlayRateObj.title = "¹²[" + this.arrImgs.length + "]ÕÅÍ¼Æ¬£¬µ±Ç°ÎªµÚ[" + (fctId + 1) + "]ÕÅÍ¼Æ¬£¬²¥·Å½ø¶ÈÎª" + ((fctId + 1) / this.arrImgs.length * 100) + "%¡£";
+                this.objPlayRateObj.style.width = ((fctId + 1) / this.arrImgs.length * this.objPlayRateObj.parentNode.offsetWidth) + "px";
+                //È¡µÃµ±Ç°²¥·ÅÍ¼Æ¬µÄĞ¡Í¼¶ÔÏó
+                this.objMinImgObj = pyzy.$("imgMinItem" + fctId)
+                //µ÷ÕûĞ¡Í¼Æ¬ÈİÆ÷¹ö¶¯ÌõÎ»ÖÃ£¬Ê¹µÃµ±Ç°Í¼Æ¬ÔÚÈİÆ÷µÄÖĞ¼ä
+                pyzy.MinImgsScroll.Init(
+                    this.objMinImgBoxObj,
+                    (
+                        (   //ÏÈÍ¨¹ıĞ¡Í¼Æ¬¶ÔÏóµÄ×ó±ß¾àÓëµÃ³öÍ¼Æ¬ÓëÈİÆ÷×ó±ßµÄ¾àÀë£ºÒòÎªIE»·¾³ÏÂµÄÔªËØ±ß¾àÊÇÏà¶ÔÓÚ¸¸ÈİÆ÷µÄ¡¢¶ø»ğºüÏÂÊÇÏà¶ÔÓÚ´°Ìå£¬ËùÒÔÕâÀïÓÃµ½ÁËä¯ÀÀÆ÷»·¾³µÄ
+                            this.objMinImgObj.offsetLeft -
+                            (navigator.appVersion.indexOf("MSIE") == -1 ? this.objMinImgObj.parentNode.offsetLeft : 0)
+                        ) -  //¼õµôÍ¼Æ¬ÈİÆ÷¹ö¶¯ÌõÒÑ¾­¾íµôµÄÏàËØ£¬ÕâÑùÈ¡µ½µÄÊÇ¿ÉÒÔÊ¹Ğ¡Í¼Æ¬Ê¼ÖÕ¾ÓÓÚÈİÆ÷×î×ó±ßµÄ£¬ËùÒÔ½ÓÏÂÀ´¼õµôÈİÆ÷Ò»°ëµÄ¿í¶È Ç¡ÇÉ¾Í¿ÉÒÔÊ¹Ğ¡Í¼Æ¬¾ÓÓÚÈİÆ÷ÖĞ¼ä
+                        this.objMinImgBoxObj.scrollLeft
+                        -
+                        (this.objMinImgBoxObj.offsetWidth / 2)
+                    )
+                );
+                //Êä³öÍ¼Æ¬Ãû³Æµ½´óÍ¼Æ¬ÈİÆ÷
+                //this.objMaxImgBoxObj.innerHTML = pyzy.ColorText(this.arrImgs[fctId][0], 0, 0, 4, "#444;bottom:2px;right:10px", "#444;bottom:2px;right:10px", 12) + //pyzy.ColorText(this.arrImgs[fctId][0], 2, 2, 4, "#666;bottom:2px;right:10px", "#fff;bottom:2px;right:10px", 12);
+                //ÓÃµ±Ç°´óÍ¼Æ¬Â·¾¶Ìæµô´óÍ¼Æ¬ÈİÆ÷µÄ±³¾°
+                this.objMaxImgBoxObj.style.backgroundImage = "url(" + this.arrImgs[fctId][1] + ")";
+                //È¡ÏûÏÈÇ°µÄÄ¬ÈÏÍ¼Æ¬µÄÑ¡ÖĞ×´Ì¬
+                pyzy.$("imgMinItem" + this.intImgId).className = "";
+                //ÉèÖÃÏÈÇ°µÄÄ¬ÈÏÍ¼Æ¬ÎªÑùÊ½ÎªÑ¡ÖĞ×´Ì¬
+                this.objMinImgObj.className = "Sel";
+                this.intImgId = fctId;
+            }
+        };
+        //¹ö¶¯Ìõ¿ØÖÆ·½·¨
+        pyzy.MinImgsScroll = {
+            intAllScrollSeep: 0, //²½³¤£¬µ¥´Î¹ö¶¯µÄ·ù¶È
+            intScrollCount: 0,   //¹ö¶¯³¤¶È¼ÇÂ¼ ¼ÇÂ¼°´ÏóËØ¹ö¶¯µÄ³¤¶ÈÓë²½³¤¶Ô±È ÓÃÒÔÊµÏÖ¶¯Ì¬¹ö¶¯Ğ§¹û
+            objScroll: null,     //Òª¿ØÖÆÆä¹ö¶¯ÌõµÄÄ¿±ê¶ÔÏó
+            boolLeft: true,      //¹ö¶¯ÌõÀàĞÍ£¬Ä¬ÈÏÎª×óÓÒË®Æ½¹ö¶¯Ìõ
+            /* Init Ë÷Òı·½·¨£º
+            @ (fctBoxObj) Òª¿ØÖÆÆä¹ö¶¯ÌõµÄÄ¿±ê¶ÔÏó,±ØĞëÖ¸¶¨
+            @ [fctSeep]   ÒÆ¶¯²½³¤ °´Õı¸ºÊı¿ØÖÆ×óÓÒ¹ö¶¯[²»Ö¸¶¨ÔòÄ¬ÈÏÎªÄ¿±ê¶ÔÏóµÄ¿í¶È(Èç¹ûÊÇ´¹Ö±ÔòÎªÆä¸ß¶È)]
+            @ [fctTop]    ¹ö¶¯ÌõÀàĞÍ Ä¬ÈÏLeftÎª×óÓÒË®Æ½¹ö¶¯Ìõ,´Ë²ÎÊıÖ¸¶¨ÈÎÒâÖµÔòÎª´¹Ö±¹ö¶¯Ìõ */
+            Init: function (fctObj, fctSeep, fctTop) {
+                this.objScroll = fctObj;
+                this.boolLeft = (fctTop == null);
+                this.intAllScrollSeep = (fctSeep == null ? (this.boolLeft ? this.objScroll.offsetWidth : this.objScroll.offsetHeight) : fctSeep);
+                //ÅĞ¶Ï¹ö¶¯²½³¤Öµ Èç¹ûÎªµ±Ç°×´Ì¬µÄ·´·½Ïò Ôò½«¹ö¶¯·ù¶ÈÈ¡·´
+                this.intSeep = ((this.intAllScrollSeep < 0 && this.intSeep > 0) || (this.intAllScrollSeep > 0 && this.intSeep < 0) ? -1 : 1) * this.intSeep;
+                this.intScrollCount = 0; //³õÊ¼»¯²½³¤Ö´ĞĞ½ø¶ÈÍ³¼ÆÎª0
+                this.AutoSeep();
+            },
+            intSeep: 5, //×Ô¶¯¹ö¶¯Ê±µÄ·ù¶È Ä¬ÈÏÎª10ÏóËØ
+            AutoSeep: function () {
+                if (Math.abs(this.intAllScrollSeep) > Math.abs(this.intScrollCount)) { //ÊÇ·ñÒÑ¾­Íê³É¹ö¶¯²½³¤
+                    this.intScrollCount += this.intSeep;
+                    if (this.boolLeft) {
+                        this.objScroll.scrollLeft += this.intSeep;
+                    } else {
+                        this.objScroll.scrollTop += this.intSeep;
+                    }
+                    window.setTimeout("pyzy.MinImgsScroll.AutoSeep();", 8); //8 ºÁÃëºó¼ÌĞøÖ´ĞĞ¹ö¶¯,Ò²¿ÉÒÔ¸ü¸Ä´Ë²ÎÊı¿ØÖÆ¹ö¶¯Ê±µÄËÙ¶È
+                }
+            }
+        };
+    </script>
 
-<style type="text/css">
-	/*å›¾ç‰‡ç›’å­ æ€»å®¹å™¨æ ·å¼*/
-	.PyzyImgBox{width:560px;height:420px; border:solid #FFFFFF 3px; background :#f8f8f8;text-align:left; border: 3px solid #f8f8f8;}
+    <style type="text/css">
+        /*Í¼Æ¬ºĞ×Ó ×ÜÈİÆ÷ÑùÊ½*/
+        .PyzyImgBox {
+            width: 560px;
+            height: 420px;
+            border: solid #FFFFFF 3px;
+            background: #f8f8f8;
+            text-align: left;
+            border: 3px solid #f8f8f8;
+        }
 
-	/*å¤§å›¾ç‰‡æ˜¾ç¤ºåŠŸèƒ½å®¹å™¨*/
-	.PyzyImgBoxBody{height:360px;text-align:center;}
-	/*ä¸»è§’å‡ºåœºï¼šå¤§å›¾ç‰‡æ˜¾ç¤ºå®¹å™¨*/
-	#divPyzyImgBoxContent{height:360px;background:url() center center no-repeat;}
-		
-	/*åº•éƒ¨åŠŸèƒ½åŒº*/
-	.PyzyImgBoxBottom{ margin-top:4px;height:40px;}
-	/*å›¾ç‰‡æ’­æ”¾è¿›åº¦*/
-	.PyzyImgBoxRate{width:50%; margin-top:1px;background-color:#bbbbbb;height:3px;border-top:solid #c5c5c5 1px;border-bottom:solid #dadada 1px;}
-	/*å°å›¾ç‰‡æ˜¾ç¤ºå®¹å™¨*/
-	.PyzyImgBoxMinImg{height:53px;text-align:center;border:solid #f8f8f8 3px;}
-	/*å°å›¾ç‰‡å®¹å™¨*/
-	.PyzyMinImgBox{margin:0px 20px;height:53px;}
-		/*ç”¨äºè®¾ç½®overflowè‹¥åœ¨ä¸Šä¸€å±‚è®¾ç½®å°†æ— æ³•æ­£å¸¸æ’ç‰ˆ*/
-		.PyzyMinImgBox div{width:580px;overflow:hidden;white-space:nowrap; font-size:0px;}
-		/*å°å›¾ç‰‡æ˜¾ç¤ºæ ·å¼ é€æ˜æ ·å¼å…¼å®¹IE FF*/
-		.PyzyMinImgBox img{filter:alpha(opacity=50);opacity: 0.5;cursor:pointer;margin:1px 4px;height:44px;width:50px; padding:1px 3px; border:solid #ccc 1px;}
-		/*è‹¥ä¸ºå½“å‰å›¾ç‰‡åˆ™å–æ¶ˆé€æ˜*/
-		.PyzyMinImgBox img.Sel{filter:none;opacity:100;border:solid #aaa 2px;}
-		
-</style>
+        /*´óÍ¼Æ¬ÏÔÊ¾¹¦ÄÜÈİÆ÷*/
+        .PyzyImgBoxBody {
+            height: 360px;
+            text-align: center;
+        }
+
+        /*Ö÷½Ç³ö³¡£º´óÍ¼Æ¬ÏÔÊ¾ÈİÆ÷*/
+        #divPyzyImgBoxContent {
+            height: 360px;
+            background: url() center center no-repeat;
+        }
+
+        /*µ×²¿¹¦ÄÜÇø*/
+        .PyzyImgBoxBottom {
+            margin-top: 4px;
+            height: 40px;
+        }
+
+        /*Í¼Æ¬²¥·Å½ø¶È*/
+        .PyzyImgBoxRate {
+            width: 50%;
+            margin-top: 1px;
+            background-color: #bbbbbb;
+            height: 3px;
+            border-top: solid #c5c5c5 1px;
+            border-bottom: solid #dadada 1px;
+        }
+
+        /*Ğ¡Í¼Æ¬ÏÔÊ¾ÈİÆ÷*/
+        .PyzyImgBoxMinImg {
+            height: 53px;
+            text-align: center;
+            border: solid #f8f8f8 3px;
+        }
+
+        /*Ğ¡Í¼Æ¬ÈİÆ÷*/
+        .PyzyMinImgBox {
+            margin: 0px 20px;
+            height: 53px;
+        }
+
+        /*ÓÃÓÚÉèÖÃoverflowÈôÔÚÉÏÒ»²ãÉèÖÃ½«ÎŞ·¨Õı³£ÅÅ°æ*/
+        .PyzyMinImgBox div {
+            width: 580px;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 0px;
+        }
+
+        /*Ğ¡Í¼Æ¬ÏÔÊ¾ÑùÊ½ Í¸Ã÷ÑùÊ½¼æÈİIE FF*/
+        .PyzyMinImgBox img {
+            filter: alpha(opacity=50);
+            opacity: 0.5;
+            cursor: pointer;
+            margin: 1px 4px;
+            height: 44px;
+            width: 50px;
+            padding: 1px 3px;
+            border: solid #ccc 1px;
+        }
+
+        /*ÈôÎªµ±Ç°Í¼Æ¬ÔòÈ¡ÏûÍ¸Ã÷*/
+        .PyzyMinImgBox img.Sel {
+            filter: none;
+            opacity: 100;
+            border: solid #aaa 2px;
+        }
+
+    </style>
 
 </head>
 
 <body style="text-align:center; padding:20px;">
 
 <div class="PyzyImgBox">
-	<div class="PyzyImgBoxBody">
-		<div id="divPyzyImgBoxContent" style="background-image:url('[img]images/logo120x50.jpg[/img]');width:630px; height:360px"></div>
-	</div>
-	<div class="PyzyImgBoxBottom">
-		<div id="divPyzyImgBoxRate" class="PyzyImgBoxRate"><!--è¿›åº¦--></div>
-		<div class="PyzyImgBoxMinImg">
-			<div class="PyzyMinImgBox">
-				<div id="divPyzyMinImgs" style="height:53px;">
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="PyzyImgBoxBody">
+        <div id="divPyzyImgBoxContent"
+             style="background-image:url('[img]images/logo120x50.jpg[/img]');width:630px; height:360px"></div>
+    </div>
+    <div class="PyzyImgBoxBottom">
+        <div id="divPyzyImgBoxRate" class="PyzyImgBoxRate"><!--½ø¶È--></div>
+        <div class="PyzyImgBoxMinImg">
+            <div class="PyzyMinImgBox">
+                <div id="divPyzyMinImgs" style="height:53px;">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
     pyzy.MinImgsBox.Init([
-        /*["å›¾ç‰‡åç§°","å¤§å›¾è·¯å¾„","å°å›¾è·¯å¾„"]*/
-        ["æµ‹è¯•å›¾ç‰‡1", "images/247662.jpg", "images/247662.jpg"],
-        ["æµ‹è¯•å›¾ç‰‡2", "images/20081106010336762.gif", "images/20081106010336762.gif"],
-        ["æµ‹è¯•å›¾ç‰‡2", "images/2007123115255158_2.jpg", "images/2007123115255158_2.jpg"],
-        ["æµ‹è¯•å›¾ç‰‡2", "images/2007123114531352_2.jpg", "images/2007123114531352_2.jpg"],
-        ["æµ‹è¯•å›¾ç‰‡2", "images/1982774_180244745210_2.jpg", "images/1982774_180244745210_2.jpg"],
-		  ["æµ‹è¯•å›¾ç‰‡2", "images/20081106010336762.gif", "images/20081106010336762.gif"],
-        ["æµ‹è¯•å›¾ç‰‡2", "images/2007123115255158_2.jpg", "images/2007123115255158_2.jpg"],
-        ["æµ‹è¯•å›¾ç‰‡2", "images/2007123114531352_2.jpg", "images/2007123114531352_2.jpg"],
-        ["æµ‹è¯•å›¾ç‰‡2", "images/1982774_180244745210_2.jpg", "images/1982774_180244745210_2.jpg"],
-		  ["æµ‹è¯•å›¾ç‰‡2", "images/20081106010336762.gif", "images/20081106010336762.gif"],
-        ["æµ‹è¯•å›¾ç‰‡2", "images/2007123115255158_2.jpg", "images/2007123115255158_2.jpg"],
-        ["æµ‹è¯•å›¾ç‰‡2", "images/2007123114531352_2.jpg", "images/2007123114531352_2.jpg"],
-        ["æµ‹è¯•å›¾ç‰‡2", "images/1982774_180244745210_2.jpg", "images/1982774_180244745210_2.jpg"],
-        ["æµ‹è¯•å›¾ç‰‡2", "http://pic4.nipic.com/20091113/1982774_180244745210_2.jpg", "images/1982774_180244745210_2.jpg"]
+        /*["Í¼Æ¬Ãû³Æ","´óÍ¼Â·¾¶","Ğ¡Í¼Â·¾¶"]*/
+        ["²âÊÔÍ¼Æ¬1", "images/247662.jpg", "images/247662.jpg"],
+        ["²âÊÔÍ¼Æ¬2", "images/20081106010336762.gif", "images/20081106010336762.gif"],
+        ["²âÊÔÍ¼Æ¬2", "images/2007123115255158_2.jpg", "images/2007123115255158_2.jpg"],
+        ["²âÊÔÍ¼Æ¬2", "images/2007123114531352_2.jpg", "images/2007123114531352_2.jpg"],
+        ["²âÊÔÍ¼Æ¬2", "images/1982774_180244745210_2.jpg", "images/1982774_180244745210_2.jpg"],
+        ["²âÊÔÍ¼Æ¬2", "images/20081106010336762.gif", "images/20081106010336762.gif"],
+        ["²âÊÔÍ¼Æ¬2", "images/2007123115255158_2.jpg", "images/2007123115255158_2.jpg"],
+        ["²âÊÔÍ¼Æ¬2", "images/2007123114531352_2.jpg", "images/2007123114531352_2.jpg"],
+        ["²âÊÔÍ¼Æ¬2", "images/1982774_180244745210_2.jpg", "images/1982774_180244745210_2.jpg"],
+        ["²âÊÔÍ¼Æ¬2", "images/20081106010336762.gif", "images/20081106010336762.gif"],
+        ["²âÊÔÍ¼Æ¬2", "images/2007123115255158_2.jpg", "images/2007123115255158_2.jpg"],
+        ["²âÊÔÍ¼Æ¬2", "images/2007123114531352_2.jpg", "images/2007123114531352_2.jpg"],
+        ["²âÊÔÍ¼Æ¬2", "images/1982774_180244745210_2.jpg", "images/1982774_180244745210_2.jpg"],
+        ["²âÊÔÍ¼Æ¬2", "http://pic4.nipic.com/20091113/1982774_180244745210_2.jpg", "images/1982774_180244745210_2.jpg"]
     ]);
 </script>
 

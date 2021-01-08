@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const applyButton = document.getElementById('apply');
     const displayImage = document.createElement('img');
     const showImageID = document.getElementById('currentImageID');
-    const saveButton = document.getElementById('save');
+    const exportButton = document.getElementById('export');
     const modal = document.getElementById('myModal');// 获取弹窗
     const modalImg = document.getElementById("img01");
     const captionText = document.getElementById("caption");
@@ -92,7 +92,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }
         updateDisplay();
     });
-    saveButton.addEventListener('click', function () {
+    exportButton.addEventListener('click', function () {
 
     });
 
