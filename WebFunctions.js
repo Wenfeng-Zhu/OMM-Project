@@ -150,7 +150,46 @@ window.addEventListener('DOMContentLoaded', function () {
         for (let i = 0; i < displayTexts.length; i++) {
             displayTexts[i].innerHTML = inputBoxes[i].value;
         }
+        draggable();
     }
+
+    function draggable(){
+        let deltaLeft, deltaTop = 0;
+        for (let i = 0; i < displayTexts.length; i++) {
+            //displayTexts[i].cursor = 'move';
+            let move = displayTexts[i].draggable;
+            displayTexts[i].addEventListener('mouseover', function (e) {
+                displayTexts[i].style.cursor ='pointer';
+            });
+            displayTexts[i].addEventListener('mousedown', function (e) {
+                deltaLeft = e.clientX - e.target.offsetLeft;
+                deltaTop = e.clientY - e.target.offsetTop;
+                move = true;
+            });
+            imageArea.addEventListener('mousemove', function (e) {
+                if (move) {
+                    const cx = e.clientX;
+                    const cy = e.clientY;
+                    let dx = cx - deltaLeft;
+                    let dy = cy - deltaTop;
+                    if (dx < 0)
+                        dx = 0;
+                    if (dy < 0)
+                        dy = 0;
+                    if (dx > (displayImage.offsetWidth - displayTexts[i].offsetWidth))
+                        dx = displayImage.offsetWidth - displayTexts[i].offsetWidth;
+                    if (dy > (displayImage.offsetHeight - displayTexts[i].offsetHeight))
+                        dy = displayImage.offsetHeight - displayTexts[i].offsetHeight;
+                    displayTexts[i].style.left = dx+'px';
+                    displayTexts[i].style.top =dy+'px';
+                }
+            });
+            imageArea.addEventListener('mouseup',function (e) {
+                move = false;
+            });
+        }
+    }
+
 
     imageArea.append(displayImage);
     loadImageUrls();
@@ -170,44 +209,13 @@ window.addEventListener('DOMContentLoaded', function () {
         else {
             displayImage.src = window.URL.createObjectURL(files[0]);
         }
-
     })
 
 
-    let deltaLeft, deltaTop = 0;
-    for (let i = 0; i < displayTexts.length; i++) {
-        //displayTexts[i].cursor = 'move';
-        let move = displayTexts[i].draggable;
-        displayTexts[i].addEventListener('mouseover', function (e) {
-            displayTexts[i].style.cursor ='pointer';
-        });
-        displayTexts[i].addEventListener('mousedown', function (e) {
-            deltaLeft = e.clientX - e.target.offsetLeft;
-            deltaTop = e.clientY - e.target.offsetTop;
-            move = true;
-        });
-        imageArea.addEventListener('mousemove', function (e) {
-            if (move) {
-                const cx = e.clientX;
-                const cy = e.clientY;
-                let dx = cx - deltaLeft;
-                let dy = cy - deltaTop;
-                if (dx < 0)
-                    dx = 0;
-                if (dy < 0)
-                    dy = 0;
-                if (dx > (displayImage.offsetWidth - displayTexts[i].offsetWidth))
-                    dx = displayImage.offsetWidth - displayTexts[i].offsetWidth;
-                if (dy > (displayImage.offsetHeight - displayTexts[i].offsetHeight))
-                    dy = displayImage.offsetHeight - displayTexts[i].offsetHeight;
-                displayTexts[i].style.left = dx+'px';
-                displayTexts[i].style.top =dy+'px';
-            }
-        });
-        imageArea.addEventListener('mouseup',function (e) {
-           move = false;
-        });
-    }
+
+
+
+
 
 
 })
