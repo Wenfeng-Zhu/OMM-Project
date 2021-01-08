@@ -97,7 +97,7 @@ window.addEventListener('DOMContentLoaded', function () {
     });
 
     viewProductsButton.addEventListener('click', function(){
-        window.location.href='./test_overview.html';
+        window.location.href='../public/test_overview.html';
     })
 
 
