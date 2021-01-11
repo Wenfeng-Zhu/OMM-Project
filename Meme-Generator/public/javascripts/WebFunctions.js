@@ -12,6 +12,9 @@ window.addEventListener('DOMContentLoaded', function () {
     const exportButton = document.getElementById('export');
     const modal = document.getElementById('myModal');// 获取弹窗
     const modalImg = document.getElementById("img01");
+    const preview = document.getElementById("preview");//获取提前预览弹窗
+    const imgpreview = document.getElementById("imgpreview");
+    const previewtext = document.getElementById("previewtext");
     const captionText = document.getElementById("caption");
     const viewProductsButton = document.getElementById('products');
     const memesList = [];
@@ -20,7 +23,11 @@ window.addEventListener('DOMContentLoaded', function () {
     const inputBoxes = [];
     let numOfInput = 2;
     let displayTexts = [];
+    let displaypreTexts = [];
     let currentImageID = 1;
+    let leftdx = [];
+    let topdy = [];
+
 
 
     function showImage(num) {
@@ -97,7 +104,26 @@ window.addEventListener('DOMContentLoaded', function () {
     });
 
     viewProductsButton.addEventListener('click', function(){
-        window.location.href='../public/test_overview.html';
+        preview.style.display = "block";
+        imgpreview.src = displayImage.src;
+        for(let i = displaypreTexts.length; i < leftdx.length;i++){
+            let displaypreText = document.createElement('text');
+            displaypreText.id = 'displaypreText-' + (i + 1);
+            displaypreText.style.position = 'absolute';
+            displaypreText.style.zIndex = '4';
+            displaypreText.style.top = (100 + (topdy[i]/displayImage.height) * imgpreview.height) + 'px';
+            displaypreText.style.left = (window.screen.width * 0.2 + (leftdx[i]/displayImage.width) * imgpreview.width) + 'px';
+            displaypreTexts[i] = displaypreText;
+            displaypreTexts[i].innerHTML = inputBoxes[i].value;
+            console.log(((leftdx[i]/displayImage.width) * imgpreview.width));
+            console.log(window.screen.width);
+            preview.append(displaypreTexts[i]);
+        }
+        for(let i = 0; i < leftdx.length; i++){
+            displaypreTexts[i].style.top = (100 + (topdy[i]/displayImage.height) * imgpreview.height) + 'px';
+            displaypreTexts[i].style.left = (window.screen.width * 0.2 + (leftdx[i]/displayImage.width) * imgpreview.width) + 'px';
+        }
+
     })
 
 
@@ -140,7 +166,9 @@ window.addEventListener('DOMContentLoaded', function () {
         displayText.style.position = 'absolute';
         displayText.style.zIndex = '2';
         displayText.style.top = (40 + 40 * i) + 'px';
+        topdy[i] = 40 + 40 * i;
         displayText.style.left = 40 + 'px';
+        leftdx[i] = 40;
         displayTexts[i] = displayText;
         imageArea.append(displayTexts[i]);
 
@@ -170,8 +198,8 @@ window.addEventListener('DOMContentLoaded', function () {
                 if (move) {
                     const cx = e.clientX;
                     const cy = e.clientY;
-                    let dx = cx - deltaLeft;
-                    let dy = cy - deltaTop;
+                    dx = cx - deltaLeft;
+                    dy = cy - deltaTop;
                     if (dx < 0)
                         dx = 0;
                     if (dy < 0)
@@ -181,7 +209,9 @@ window.addEventListener('DOMContentLoaded', function () {
                     if (dy > (displayImage.offsetHeight - displayTexts[i].offsetHeight))
                         dy = displayImage.offsetHeight - displayTexts[i].offsetHeight;
                     displayTexts[i].style.left = dx+'px';
+                    leftdx[i] = dx;
                     displayTexts[i].style.top =dy+'px';
+                    topdy[i] = dy;
                 }
             });
             imageArea.addEventListener('mouseup',function (e) {
