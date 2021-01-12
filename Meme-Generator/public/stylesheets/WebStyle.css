@@ -5,6 +5,12 @@
     height: 950px;
 }
 
+#container_meme {
+    display: grid;
+    grid-template-columns: 66.7% 33.3%;
+    grid-column-gap: 20px;
+}
+
 
 #slideShowImages {
     display: grid;
