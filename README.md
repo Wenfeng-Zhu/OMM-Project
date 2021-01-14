@@ -34,3 +34,6 @@ LMU-WS2020/21-Online Multimedia-Memes Generator Web-Page Project
 ## Version 0.07
 * Code refactoring, separation of the different functional blocks.
 * **01/13 Wenfeng Zhu**
+## Version 0.08
+* Add a image-export function and solve the Cross-origin problem
+* **01/14 Wenfeng Zhu**
