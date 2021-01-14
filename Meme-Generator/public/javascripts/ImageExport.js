@@ -1,12 +1,19 @@
-const html2canvas = require("html2canvas");
-const FileSave =require('filesaver') ;
-function imageExport(element, name) {
-    alert('test-4');
+const exportButton = document.getElementById('export');
 
-    html2canvas(element).then(canvas =>{
-        canvas.toBlob(function (blob){
-            alert('test-3');
-            FileSave.saveAs(blob,name);
+//此处必须强调 html2canvas 在读取html element时候img的跨域问题
+function imageExport(element, name) {
+    html2canvas(element, {useCORS: true}).then(canvas => {
+        canvas.toBlob(function (blob) {
+            saveAs(blob, name);
         })
     });
 }
+
+
+exportButton.addEventListener('click', function () {
+    let element = imageArea;
+    alert(imageArea.innerHTML);
+    let name = document.getElementById('inputText-title').value;
+    imageExport(element, name);
+});
+

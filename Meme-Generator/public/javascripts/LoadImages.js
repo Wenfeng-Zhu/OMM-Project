@@ -20,7 +20,6 @@ function loadImageUrls() {
                 memesList[i] = result['data']['memes'][i];
             }
             showImage(0)
-            // showImageID.innerHTML = "1/" + memesList.length;
         })
         .catch(error => console.log('error', error));
 }
@@ -30,6 +29,7 @@ function showImage(num) {
     displayImage.src = meme.url;
     displayImage.width = areaWidth;
     displayImage.height = meme.height * areaWidth / meme.width;
+
     displayImage.onclick = function(){
         modal.style.display = "block";
         modalImg.src = displayImage.src;
