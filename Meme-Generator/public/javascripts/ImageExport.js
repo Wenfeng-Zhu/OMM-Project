@@ -12,7 +12,6 @@ function imageExport(element, name) {
 
 exportButton.addEventListener('click', function () {
     let element = imageArea;
-    alert(imageArea.innerHTML);
     let name = document.getElementById('inputText-title').value;
     imageExport(element, name);
 });

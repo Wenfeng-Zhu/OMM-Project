@@ -1,3 +1,3 @@
 imageArea.append(displayImage);
 loadImageUrls();
-inputInit(3);
+inputInit(2);

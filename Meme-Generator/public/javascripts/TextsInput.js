@@ -1,4 +1,4 @@
-const texts = document.getElementById('inputText');
+const inputTextsArea = document.getElementById('inputText');
 const inputBoxes = [];
 const leftDx = [];
 const topDy = [];
@@ -20,12 +20,13 @@ applyButton.addEventListener('click', function () {
 });
 
 function inputInit(numOfInput){
+
     let input = document.createElement('input');
     input.height = 50;
     input.id = 'inputText-title';
     input.type = 'text';
     input.value = 'inputText-title';
-    texts.append(input);
+    inputTextsArea.append(input);
     for (let i = 0; i < numOfInput; i++) {
         createInputBoxes(i);
         createDisplayText(i);
@@ -34,12 +35,32 @@ function inputInit(numOfInput){
 }
 
 function createInputBoxes(i) {
+    let inputUnit = document.createElement('div');
+    inputUnit.style.display = 'grid';
+    inputUnit.style.gridTemplateColumns = '80% 10% 10%';
+    inputUnit.style.alignItems = 'center';
+    inputUnit.offsetHeight = 50;
+
+    let inputColor = document.createElement('input');
+    inputColor.type = 'color';
+    // inputColor.style.alignItems = 'center';
+
+    let inputSize = document.createElement('input');
+    inputSize.type = 'number';
+    inputSize.value = '20';
+
+
     let input = document.createElement('input');
-    input.height = 50;
+    input.height = 40;
     input.id = 'inputText-' + (i + 1);
     input.type = 'text';
     input.value = 'inputText-' + (i + 1);
-    texts.append(input);
+    //input.style.fontSize = inputSize.value+'px';
+
+    inputUnit.append(input);
+    inputUnit.append(inputColor);
+    inputUnit.append(inputSize);
+    inputTextsArea.append(inputUnit);
     inputBoxes[i] = input;
 }
 
