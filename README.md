@@ -37,3 +37,6 @@ LMU-WS2020/21-Online Multimedia-Memes Generator Web-Page Project
 ## Version 0.08
 * Add a image-export function and solve the Cross-origin problem
 * **01/14 Wenfeng Zhu**
+## Version 0.09
+* Add the the overview(scroll function) of images
+* **01/17 Shuaicong Wu**
