@@ -142,3 +142,49 @@
     display: grid;
     grid-template-columns: 50% 50%;
 }
+
+.thumbnail {
+    width: 150px;
+    height: 150px;
+    padding-right: 10px;
+    text-align: center;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 60% repeat(6, 5%);
+    
+    grid-gap: 10px;
+    background-color: #2196F3;
+    padding: 10px;
+    margin-bottom: 30px;
+  }
+
+  .image {
+    grid-row-start: 1;
+    grid-row-end: 10; 
+    text-align: center;
+  }
+
+  .thnSingleDiv {
+      display: inline-block;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border: 1px solid #000;
+    margin-right: 5px;
+  }
+
+  .thnSingleImg {
+    width: 100%;
+    height: 100%;
+  }
+
+  #thnDiv {
+      display: inline-block;
+      overflow: scroll;
+      overflow-y: hidden;
+      white-space: nowrap;
+      height: 60px;
+      width: 500px;
+  }
