@@ -18,6 +18,8 @@ function loadImageUrls() {
         .then(result => {
             for (let i in result['data']['memes']) {
                 memesList[i] = result['data']['memes'][i];
+                titleThn.innerText = memesList[i].name;
+                titleThn.style.fontWeight = "bold";
             }
             showImage(0)
         })
@@ -35,6 +37,11 @@ function showImage(num) {
         modalImg.src = displayImage.src;
         captionText.innerHTML = meme.name;
     }
+
+    displayImage.alt = meme.name;
+    titleThn.innerText = displayImage.alt;
+    titleThn.style.fontWeight = "bold";
+    
     // 获取 <span> 元素，设置关闭按钮
     const span = document.getElementsByClassName("close")[0];
     // 当点击 (x), 关闭弹窗
