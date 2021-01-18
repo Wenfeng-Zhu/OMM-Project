@@ -40,3 +40,7 @@ LMU-WS2020/21-Online Multimedia-Memes Generator Web-Page Project
 ## Version 0.09
 * Add the the overview(scroll function) of images
 * **01/17 Shuaicong Wu**
+
+## Version 0.10
+* Add basic text formatting options for the text inside the image (colour, size, bold, italic)
+* **01/18 Wenfeng Zhu**
