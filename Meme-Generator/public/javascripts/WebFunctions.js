@@ -1,4 +1,4 @@
 imageArea.append(displayImage);
 loadImageUrls();
 inputInit(2);
-setTimeout(showThumbnails, 1000);
+setTimeout(showThumbnails, 100);

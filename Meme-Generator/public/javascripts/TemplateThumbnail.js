@@ -2,7 +2,7 @@ const thnImgs = document.getElementById('thnDiv');
 const titleThn = document.getElementById('titleTmpl');
 
 function showThumbnails() {
-    console.log(memesList.length);
+    //console.log(memesList.length);
     for (let i in memesList) {
         var imgDiv = document.createElement('div');
         imgDiv.className = "thnSingleDiv";
@@ -23,7 +23,6 @@ function showThumbnails() {
         imgDiv.onmouseleave = function() {
             titleThn.innerText = displayImage.alt;
             titleThn.style.fontWeight = "bold";
-
         } 
 
         imgDiv.addEventListener('click', function(){
@@ -34,7 +33,7 @@ function showThumbnails() {
 
         thnImgs.appendChild(imgDiv);
 
-        console.log(memesList[i].name);
+        //console.log(memesList[i].name);
     }
      
     
