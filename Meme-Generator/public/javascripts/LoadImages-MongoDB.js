@@ -12,6 +12,8 @@ const captionText = document.getElementById("caption");
 let currentImageID = 0;
 let numberOfImages = () => memesList.length;
 
+
+//TODO：将数据库中读取的memes templates文件都存入memesList中
 function loadImageUrls() {
     fetch("https://api.imgflip.com/get_memes")
         .then(response => response.json())
@@ -24,6 +26,8 @@ function loadImageUrls() {
         .catch(error => console.log('error', error));
 }
 
+
+//TODO：如果是渲染数据库中的图 则需要修改src="image/<%= file.filename"
 function showImage(num) {
     let meme = memesList[num];
     displayImage.src = meme.url;
