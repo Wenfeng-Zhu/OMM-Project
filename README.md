@@ -44,3 +44,7 @@ LMU-WS2020/21-Online Multimedia-Memes Generator Web-Page Project
 ## Version 0.10
 * Add basic text formatting options for the text inside the image (colour, size, bold, italic)
 * **01/18 Wenfeng Zhu**
+
+## Version 0.11
+* Connect to MongoDB Altas. Realize image upload.
+* **01/18 Chenke Xie**
