@@ -12,6 +12,7 @@
 
 <div id="container">
     <div id="slideShowImages">
+        <!--show memes templates-->
         <div id="imageArea"></div>
         <div id="buttonArea">
             <button id="preButton">Pre</button>
@@ -31,7 +32,10 @@
             <button id="testButton">Test Button</button>
         </div>
         <div id="filesArea">
-            <input id="importFile" onchange="" type="file" />
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" id="file"/>
+                <input type="submit" value="Submit"/>
+            </form>
             <button id="export">Export</button>
         </div>
     </div>
