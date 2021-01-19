@@ -16,7 +16,7 @@ function loadImageUrls() {
     fetch("https://api.imgflip.com/get_memes")
         .then(response => response.json())
         .then(result => {
-            for (let i in result['data']['memes']) {
+            for (let i  = 0;i< result['data']['memes'].length;i++) {
                 memesList[i] = result['data']['memes'][i];
                 titleThn.innerText = memesList[i].name;
                 titleThn.style.fontWeight = "bold";
