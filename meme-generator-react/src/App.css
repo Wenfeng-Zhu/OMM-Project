@@ -1,0 +1,180 @@
+#container {
+  display: grid;
+  grid-template-columns: 17.5% 30% 35% 17.5%;
+  grid-column-gap: 20px;
+  height: 950px;
+}
+
+.imageArea{
+  display: grid;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-template-rows: 95% 5%;
+}
+#imageInform{
+  display: grid;
+  grid-template-rows: 20% 80%;
+}
+
+#currentImageID{
+  text-align:left;
+}
+
+#buttonArea{
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+#editArea {
+  display: grid;
+  grid-template-rows: 15% 42.5% 42.5%;
+}
+
+#overviewTmplArea{
+  background-color: darkorchid;
+  display: grid;
+  grid-template-rows: 30% 70%;
+}
+#thnDiv{
+  width: 100%;
+}
+#textArea{
+  display: grid;
+  grid-template-rows: 70% 10% 10% 10%;
+}
+
+#inputText{
+  display: grid;
+  grid-template-rows: repeat(auto-fill, 60px);
+}
+
+#addNewText{
+}
+
+#filesArea{
+  display: grid;
+  grid-template-rows: repeat(auto-fill, 70px);
+}
+
+
+/* 弹窗背景 */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 3; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 85%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* 图片 */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  max-height:1000px;
+}
+
+/* 文本内容 */
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 5%;
+}
+
+/* 添加动画 */
+.modal-content, #caption {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(0)}
+  to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+
+/* 关闭按钮 */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 小屏幕中图片宽度为 100% */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
+
+#modalButtonArea{
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+#previewtext {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 5%;
+}
+
+.thnSingleDiv {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border: 1px solid #000;
+  margin-right: 5px;
+}
+
+.thnSingleImg {
+  width: 100%;
+  height: 100%;
+}
+
+#thnDiv {
+  display: inline-block;
+  overflow: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  height: 50px;
+  width: 500px;
+}
+
+#testButton{
+  outline: none;
+}
