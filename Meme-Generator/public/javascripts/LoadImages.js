@@ -64,12 +64,12 @@ function showSingleView(num){
 }
 
 preButton.addEventListener('click', function () {
-    currentImageID = currentImageID === 0 ? numberOfImages() - 1 : currentImageID - 1;
+    currentImageID = (currentImageID === 0 ? numberOfImages() - 1 : currentImageID - 1);
     showImage(currentImageID);
 });
 
 nextButton.addEventListener('click', function () {
-    currentImageID = currentImageID === numberOfImages() - 1 ? 0 : currentImageID + 1;
+    currentImageID = (currentImageID === numberOfImages() - 1 ? 0 : currentImageID + 1);
     showImage(currentImageID);
 });
 

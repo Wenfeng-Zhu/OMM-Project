@@ -1,0 +1,55 @@
+.inputTextsArea{
+    display: grid;
+    grid-template-rows: 90% 10%;
+}
+#input-Title{
+    width: 98%;
+    height: 80%;
+    justify-items: center;
+    align-items: center;
+}
+
+.inputBoxes{
+    display: grid;
+    grid-template-rows: repeat(auto-fill, 15%);
+}
+
+.inputUnit{
+    display: grid;
+    grid-template-columns: 68% 8% 8% 8% 8%;
+    align-items: center;
+}
+
+.inputBox{
+    height: 60%;
+    width: 90%;
+    justify-items: center;
+}
+
+.inputColor{
+    width: 80%;
+}
+
+.inputSize{
+    width: 80%;
+}
+
+.inputBold{
+    width: 80%;
+}
+
+.inputItalic{
+    width: 80%;
+}
+
+.bold{
+    font-weight: bold;
+}
+.italic{
+    font-style: italic;
+}
+
+.buttonArea{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
