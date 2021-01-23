@@ -13,7 +13,17 @@
 <div id="container">
     <div id="slideShowImages">
         <!--show memes templates-->
-        <div id="imageArea"></div>
+        <div id="imageArea">
+            <% if(files){ %>
+                <% files.forEach(function(file) { %>
+                    <% if(file.isImage) { %>
+                      <img src="image/<%= file.filename %>" alt="">
+                      <% } %>
+                  <% }) %>
+                    <% } else { %>
+                      <p>No memes</p>
+                      <% } %>
+        </div>
         <div id="buttonArea">
             <button id="preButton">Pre</button>
             <button id="nextButton">Next</button>
@@ -76,8 +86,8 @@
 
 <script src="javascripts/TextsInput.js"></script>
 <script src="javascripts/ImportFiles.js"></script>
-<script src="javascripts/ImageExport.js"></script>
+<!-- <script src="javascripts/ImageExport.js"></script> -->
 <script src="javascripts/LoadImages.js"></script>
 <script src="javascripts/TemplateThumbnail.js"></script>
-<script src="javascripts/WebFunctions.js"></script>
+<!-- <script src="javascripts/WebFunctions.js"></script> -->
 </html>
