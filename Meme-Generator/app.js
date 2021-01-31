@@ -1,3 +1,8 @@
+/**
+ * The code for obtaining picture format data from mongodb is referenced from 
+ * https://github.com/bradtraversy/mongo_file_uploads
+ */
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -11,26 +16,24 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const methodOverride = require('method-override');
 
-//create MongoDB URI
+var generatedMemesRouter = require('./routes/generated');
+
+var app = express();
+
+//Mongo URI
 //memes-generate cluster0 database:memes
 const mongoURI = 'mongodb+srv://chenke_xie:omm123456@cluster0.y41uj.mongodb.net/memes?retryWrites=true&w=majority';
 
-//create Mongo connection
+//create mongo connection
 const conn = mongoose.createConnection(mongoURI);
 
 //Init gfs
 let gfs;
 
-
-
-/**
- * The following part about how express connects with mongodb, refer to the source:
- * https://github.com/bradtraversy/mongo_file_uploads
- */
 conn.once('open', () => {
   //Init stream
   gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection('memes_templates');
+  gfs.collection('uploads');
 });
 
 //create store engine
@@ -45,7 +48,7 @@ const storage = new GridFsStorage({
         const filename = buf.toString('hex') + path.extname(file.originalname);
         const fileInfo = {
           filename: filename,
-          bucketName: 'memes_templates'
+          bucketName: 'uploads'
         };
         resolve(fileInfo);
       });
@@ -53,15 +56,9 @@ const storage = new GridFsStorage({
   }
 });
 
-//Init upload memes-template
-const upload_template = multer({ storage });
+//Init upload
+const upload = multer({ storage });
 
-
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -74,20 +71,43 @@ app.use(cookieParser());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/generated-memes', generatedMemesRouter);
+
+// @route GET /
+// @desc Loads form
+app.get('/', (req, res) => {
+  gfs.files.find().toArray((err, files) => {
+    // Check if files
+    if (!files || files.length === 0) {
+      res.render('index', { files: false });
+    } else {
+      files.map(file => {
+        if (
+          file.contentType === 'image/jpeg' ||
+          file.contentType === 'image/png'
+        ) {
+          file.isImage = true;
+        } else {
+          file.isImage = false;
+        }
+      });
+      res.render('index', { files: files });
+    }
+  });
+});
 
 
 // @route POST /upload
-// @desc  Uploads memes-template to DB
-app.post('/upload', upload_template.single('file'), (req, res) => {
+// @desc  Uploads file to DB
+app.post('/upload', upload.single('file'), (req, res) => {
+  // res.json({ file: req.file });
   res.redirect('/');
 });
 
 
-// @route GET /templates
+// @route GET /files
 // @desc  Display all files in JSON
-app.get('/templates', (req, res) => {
+app.get('/files', (req, res) => {
   gfs.files.find().toArray((err, files) => {
     // Check if files
     if (!files || files.length === 0) {
@@ -95,15 +115,31 @@ app.get('/templates', (req, res) => {
         err: 'No files exist'
       });
     }
+
     // Files exist
     return res.json(files);
   });
 });
 
+// @route GET /files/:filename
+// @desc  Display single file object
+app.get('/files/:filename', (req, res) => {
+  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+    // Check if file
+    if (!file || file.length === 0) {
+      return res.status(404).json({
+        err: 'No file exists'
+      });
+    }
+    // File exists
+    return res.json(file);
+  });
+});
 
-// @route GET /templates/:filename
+
+// @route GET /image/:filename
 // @desc Display Image
-app.get('/templates/:filename', (req, res) => {
+app.get('/image/:filename', (req, res) => {
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     // Check if file
     if (!file || file.length === 0) {
@@ -126,18 +162,17 @@ app.get('/templates/:filename', (req, res) => {
 });
 
 
+// // @route DELETE /files/:id
+// // @desc  Delete file
+// app.delete('/files/:id', (req, res) => {
+//   gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
+//     if (err) {
+//       return res.status(404).json({ err: err });
+//     }
 
-// @route DELETE /templates/:id
-// @desc  Delete file
-app.delete('/templates/:id', (req, res) => {
-  gfs.remove({ _id: req.params.id, root: 'memes_template' }, (err, gridStore) => {
-    if (err) {
-      return res.status(404).json({ err: err });
-    }
-    res.redirect('/');
-  });
-});
-
+//     res.redirect('/');
+//   });
+// });
 
 
 // catch 404 and forward to error handler
@@ -155,7 +190,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-
 
 module.exports = app;
