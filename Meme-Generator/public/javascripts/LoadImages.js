@@ -4,6 +4,7 @@ const modal = document.getElementById('myModal');// 获取弹窗
 const modalImg = document.getElementById("img01");
 const preButton = document.getElementById('preButton');
 const nextButton = document.getElementById('nextButton');
+const viewGenButton = document.getElementById('viewGenerated');
 const singleViewPreButton = document.getElementById('modalPreButton');
 const singleViewNextButton = document.getElementById('modalNextButton');
 const memesList = [];
@@ -16,8 +17,17 @@ function loadImageUrls() {
     fetch("https://api.imgflip.com/get_memes")
         .then(response => response.json())
         .then(result => {
-            for (let i  = 0;i< result['data']['memes'].length;i++) {
+            for (let i  = 0;i< 10;i++) {
                 memesList[i] = result['data']['memes'][i];
+                /**
+                 * {
+                 *  "id":"181913649",
+                 *  "name":"Drake Hotline Bling",
+                 *  "url":"https:\/\/i.imgflip.com\/30b1gx.jpg",
+                 *  "width":1200,
+                 *  "height":1200,
+                 *  "box_count":2}, ......
+                 */
                 titleThn.innerText = memesList[i].name;
                 titleThn.style.fontWeight = "bold";
             }
@@ -62,6 +72,11 @@ function showSingleView(num){
         modal.style.display = "none";
     }
 }
+
+//页面跳转至Generated memes
+viewGenButton.addEventListener('click', function(){
+    location.href = '/generated-memes';
+});
 
 preButton.addEventListener('click', function () {
     currentImageID = currentImageID === 0 ? numberOfImages() - 1 : currentImageID - 1;

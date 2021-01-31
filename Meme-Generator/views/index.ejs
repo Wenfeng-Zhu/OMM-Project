@@ -13,17 +13,7 @@
 <div id="container">
     <div id="slideShowImages">
         <!--show memes templates-->
-        <div id="imageArea">
-            <% if(files){ %>
-                <% files.forEach(function(file) { %>
-                    <% if(file.isImage) { %>
-                      <img src="image/<%= file.filename %>" alt="">
-                      <% } %>
-                  <% }) %>
-                    <% } else { %>
-                      <p>No memes</p>
-                      <% } %>
-        </div>
+        <div id="imageArea"></div>
         <div id="buttonArea">
             <button id="preButton">Pre</button>
             <button id="nextButton">Next</button>
@@ -39,13 +29,11 @@
 <!--            <input type="color" id="textColor" name="textColor" value="#e66465">-->
             <button id="apply">Apply</button>
             <button id="addNewText">Add</button>
-            <button id="testButton">Test Button</button>
+            <button id="generate">Generate</button>
+            <button id="viewGenerated">View Generated Memes</button>
         </div>
         <div id="filesArea">
-            <form action="/upload" method="POST" enctype="multipart/form-data">
-                <input type="file" name="file" id="file"/>
-                <input type="submit" value="Submit"/>
-            </form>
+            <input id="importFile" onchange="" type="file" />
             <button id="export">Export</button>
         </div>
     </div>
@@ -86,8 +74,8 @@
 
 <script src="javascripts/TextsInput.js"></script>
 <script src="javascripts/ImportFiles.js"></script>
-<!-- <script src="javascripts/ImageExport.js"></script> -->
+<script src="javascripts/ImageExport.js"></script>
 <script src="javascripts/LoadImages.js"></script>
 <script src="javascripts/TemplateThumbnail.js"></script>
-<!-- <script src="javascripts/WebFunctions.js"></script> -->
+<script src="javascripts/WebFunctions.js"></script>
 </html>

@@ -1,3 +1,8 @@
+/**
+ * The code for obtaining picture format data from mongodb is referenced from 
+ * https://github.com/bradtraversy/mongo_file_uploads
+ */
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -10,6 +15,8 @@ const multer = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const methodOverride = require('method-override');
+
+var generatedMemesRouter = require('./routes/generated');
 
 var app = express();
 
@@ -63,6 +70,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/generated-memes', generatedMemesRouter);
 
 // @route GET /
 // @desc Loads form
