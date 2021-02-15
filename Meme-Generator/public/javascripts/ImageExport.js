@@ -14,8 +14,10 @@ function imageExport(element, name) {
 function upload2mongodb(element, name){
     html2canvas(element, {useCORS: true}).then((canvas) => {
         //将canvas转为base64格式
-        var imgUri = canvas.toDataURL("image/png");
-        alert("url: " + imgUri);
+        // document.getElementById('img_val').value(canvas.toDataURL("image/png"));
+        // document.getElementById("myForm").submit();
+        var imgUrl = canvas.toDataURL("image/png");
+        alert(imgUrl);
     });
 }
 
