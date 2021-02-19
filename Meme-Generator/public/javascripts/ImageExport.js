@@ -1,3 +1,5 @@
+const { post } = require("../../app");
+
 const exportButton = document.getElementById('export');
 const generateButton = document.getElementById('generate');
 
@@ -14,10 +16,14 @@ function imageExport(element, name) {
 function upload2mongodb(element, name){
     html2canvas(element, {useCORS: true}).then((canvas) => {
         //将canvas转为base64格式
-        // document.getElementById('img_val').value(canvas.toDataURL("image/png"));
-        // document.getElementById("myForm").submit();
         var imgUrl = canvas.toDataURL("image/png");
-        alert(imgUrl);
+        const data = new FormData();
+        data.append('file', imgUrl);
+
+        fetch('localhost:3000/upload', {
+            method: 'POST',
+            body: data
+        });
     });
 }
 
