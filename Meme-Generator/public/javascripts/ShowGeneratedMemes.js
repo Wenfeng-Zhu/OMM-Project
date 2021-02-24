@@ -14,7 +14,6 @@ const areaWidth = imageArea.offsetWidth;
 // const captionText = document.getElementById("caption");
 let currentImageID = 0;
 let numberOfImages = () => dbMemes.length;
-
 function loadImageUrls() {
     fetch("http://localhost:3000/files")
         .then(response => response.json())
@@ -30,6 +29,7 @@ function loadImageUrls() {
 }
 
 function showImage(num) {
+
     let memeurl = "http://localhost:3000/image/"+dbMemes[num].filename;
     displayImage.src = memeurl;
     displayImage.width = areaWidth;
