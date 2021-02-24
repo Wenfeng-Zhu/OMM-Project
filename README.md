@@ -48,3 +48,7 @@ LMU-WS2020/21-Online Multimedia-Memes Generator Web-Page Project
 ## Version 0.11
 * Read image from MongoDB Altas.
 * **01/18 Chenke Xie**
+
+## Version 0.12
+* User can upload Memes to MongoDB
+* **02/23 Wenfeng Zhu**
