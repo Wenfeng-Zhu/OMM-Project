@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/WebStyle.css">
     <script src="javascripts/html2canvas.js"></script>
     <script src="javascripts/FileSaver.js"></script>
+    <script scr="https://jquery.com/"></script>
 
 </head>
 <body>
@@ -29,15 +30,15 @@
 <!--            <input type="color" id="textColor" name="textColor" value="#e66465">-->
             <button id="apply">Apply</button>
             <button id="addNewText">Add</button>
-            <form action="/upload" method="POST" enctype="multipart/form-data" id="myForm">
-                <input type="hidden" name="img_val" id="img_val" />
-            </form>
-            <input type="submit" id="generate" value="Generate"/>
-            <button id="viewGenerated">View Generated Memes</button>
         </div>
         <div id="filesArea">
             <input id="importFile" onchange="" type="file" />
-            <button id="export">Export</button>
+            <button id="export">Download</button>
+<!--            <form id="myForm" action = '/upload' method = 'POST' enctype="multipart/form-data" >-->
+<!--                <input type="file" name="file" id="file" />-->
+<!--            </form>-->
+            <input type="button" id="generate" value="Save Meme to Database"/>
+            <button id="viewGenerated">View Generated Memes</button>
         </div>
     </div>
 

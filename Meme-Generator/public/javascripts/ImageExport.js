@@ -12,12 +12,28 @@ function imageExport(element, name) {
 
 
 function upload2mongodb(element, name){
-    html2canvas(element, {useCORS: true}).then((canvas) => {
-        //将canvas转为base64格式
-        // document.getElementById('img_val').value(canvas.toDataURL("image/png"));
-        // document.getElementById("myForm").submit();
-        var imgUrl = canvas.toDataURL("image/png");
-        alert(imgUrl);
+
+    html2canvas(element, {useCORS: true}).then(canvas => {
+        canvas.toBlob(function (blob) {
+            let formData = new FormData();
+            // let fileOfBlob = new File(blob,'file');
+            formData.set('file',blob);
+            //formData.delete('file');
+            // for(var pair of formData.entries()) {
+            //     alert(pair[0]+ ', '+ pair[1].type);
+            // }
+
+            //saveAs(blob, name);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://localhost:3000/upload', true);
+            xhr.send(formData);
+            // alert(blob.type);
+            // myForm.;
+            // myForm.;
+            // myForm.";
+            //myForm.submit();
+
+        })
     });
 }
 
@@ -26,7 +42,6 @@ generateButton.addEventListener('click', function () {
     let element = imageArea;
     let name = document.getElementById('inputText-title').value;
     upload2mongodb(element, name);
-
 });
 
 
