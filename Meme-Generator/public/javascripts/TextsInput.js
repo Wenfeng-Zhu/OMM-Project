@@ -63,7 +63,7 @@ function createInputBoxes(i) {
 
     let inputSize = document.createElement('input');
     inputSize.type = 'number';
-    inputSize.value = '20';
+    inputSize.value = '40';
     inputSize.style.width = 80+'%';
 
     let boldLabel = document.createElement('label');
@@ -102,7 +102,8 @@ function createDisplayText(i) {
     displayText.id = 'displayText-' + (i + 1);
     displayText.style.position = 'absolute';
     displayText.style.zIndex = '2';
-    displayText.style.top = (40 + 40 * i) + 'px';
+    displayText.style.top = (40 + 350 * i) + 'px';
+    displayText.style.fontFamily = 'impact';
     topDy[i] = 40 + 40 * i;
     displayText.style.left = 40 + 'px';
     leftDx[i] = 40;

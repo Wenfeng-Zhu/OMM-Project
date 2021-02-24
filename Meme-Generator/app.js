@@ -22,8 +22,7 @@ var app = express();
 
 //Mongo URI
 //memes-generate cluster0 database:memes
-const mongoURI = 'mongodb+srv://chenke_xie:omm123456@cluster0.y41uj.mongodb.net/memes?retryWrites=true&w=majority';
-
+const mongoURI = 'mongodb+srv://wenfeng_zhu:ommproject@cluster0.y41uj.mongodb.net/memes?retryWrites=true&w=majority';
 //create mongo connection
 const conn = mongoose.createConnection(mongoURI);
 
@@ -102,6 +101,7 @@ app.get('/', (req, res) => {
 app.post('/upload', upload.single('file'), (req, res) => {
   // res.json({ file: req.file });
   res.redirect('/');
+
 });
 
 
