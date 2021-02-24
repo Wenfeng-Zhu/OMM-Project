@@ -44,7 +44,8 @@ const storage = new GridFsStorage({
         if(err){
           return reject(err);
         }
-        const filename = buf.toString('hex') + path.extname(file.originalname);
+        //const filename = buf.toString('hex') + path.extname(file.originalname);
+        const filename = file.originalname;
         const fileInfo = {
           filename: filename,
           bucketName: 'uploads'
@@ -100,7 +101,10 @@ app.get('/', (req, res) => {
 // @desc  Uploads file to DB
 app.post('/upload', upload.single('file'), (req, res) => {
   // res.json({ file: req.file });
-  res.redirect('/');
+  //res.redirect('/');
+  // console.log(req.file.originalname);
+  // res.json({'file':req.file.originalname})
+  alert('Upload successfully!')
 
 });
 

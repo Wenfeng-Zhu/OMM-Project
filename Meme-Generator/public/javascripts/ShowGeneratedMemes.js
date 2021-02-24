@@ -1,37 +1,28 @@
 const imageArea = document.getElementById('imageArea');
 const displayImage = document.createElement('img');
+const title = document.getElementById('generatedTitle');
 // const modal = document.getElementById('myModal');// 获取弹窗
 // const modalImg = document.getElementById("img01");
 const preButton = document.getElementById('preButton');
 const nextButton = document.getElementById('nextButton');
+const backButton = document.getElementById('back');
 // const singleViewPreButton = document.getElementById('modalPreButton');
 // const singleViewNextButton = document.getElementById('modalNextButton');
-const dbmemesurl = [];
+const dbMemes = [];
 const memesList = [];
 const areaWidth = imageArea.offsetWidth;
 // const captionText = document.getElementById("caption");
 let currentImageID = 0;
-let numberOfImages = () => dbmemesurl.length;
+let numberOfImages = () => dbMemes.length;
 
 function loadImageUrls() {
     fetch("http://localhost:3000/files")
         .then(response => response.json())
         .then(result => {
             for (let i  = 0; i < result.length; i++) {
-                /**
-                 * {
-                 *  "_id":"600a9eec7478e046a6e4e58b",
-                 *  "length":118935,
-                 *  "chunkSize":261120,
-                 *  "uploadDate":"2021-01-22T09:46:26.107Z",
-                 *  "filename":"9a0f381a7c1ea0a306d12e96a8c560d6.jpg",
-                 *  "md5":"20d17f3a522e029f0d53b781f750a52e",
-                 *  "contentType":"image/jpeg"}
-                 */
-                titleThn.innerText = result[i].filename;
-                titleThn.style.fontWeight = "bold";
-
-                dbmemesurl[i] = "http://localhost:3000/image/" + result[i].filename;
+                // titleThn.innerText = result[i].filename;
+                // titleThn.style.fontWeight = "bold";
+                dbMemes[i] = result[i];
             }
             showImage(0)
         })
@@ -39,41 +30,13 @@ function loadImageUrls() {
 }
 
 function showImage(num) {
-    let memeurl = dbmemesurl[num];
+    let memeurl = "http://localhost:3000/image/"+dbMemes[num].filename;
     displayImage.src = memeurl;
     displayImage.width = areaWidth;
-    displayImage.height = 500;
-
-    // displayImage.onclick = function(){
-    //     modal.style.display = "block";
-    //     modalImg.src = displayImage.src;
-    //     captionText.innerHTML = meme.name;
-    // }
-
-    // displayImage.alt = meme.name;
-    // titleThn.innerText = displayImage.alt;
-    // titleThn.style.fontWeight = "bold";
-    
-    // // 获取 <span> 元素，设置关闭按钮
-    // const span = document.getElementsByClassName("close")[0];
-    // // 当点击 (x), 关闭弹窗
-    // span.onclick = function() {
-    //     modal.style.display = "none";
-    // }
+    //displayImage.height = dbMemes[num].height * areaWidth / dbMemes[num].width;
+    title.innerHTML = dbMemes[num].filename.toString();
+    //alert(dbMemes[num].filename.toString())
 }
-// function showSingleView(num){
-//     // 获取图片插入到弹窗 - 使用 "alt" 属性作为文本部分的内容
-//     let meme = memesList[num];
-//     modal.style.display = "block";
-//     modalImg.src = displayImage.src;
-//     captionText.innerHTML = meme.name;
-//     // 获取 <span> 元素，设置关闭按钮
-//     var span = document.getElementsByClassName("close")[0];
-//     // 当点击 (x), 关闭弹窗
-//     span.onclick = function() {
-//         modal.style.display = "none";
-//     }
-// }
 
 preButton.addEventListener('click', function () {
     currentImageID = currentImageID === 0 ? numberOfImages() - 1 : currentImageID - 1;
@@ -85,15 +48,7 @@ nextButton.addEventListener('click', function () {
     showImage(currentImageID);
 });
 
-singleViewPreButton.addEventListener('click', function(){
-    currentImageID = currentImageID === 0 ? numberOfImages() - 1 : currentImageID - 1;
-    showImage(currentImageID);
-    showSingleView(currentImageID);
-});
-
-singleViewNextButton.addEventListener('click', function(){
-    currentImageID = currentImageID === numberOfImages() - 1 ? 0 : currentImageID + 1;
-    showImage(currentImageID);
-    showSingleView(currentImageID);
+backButton.addEventListener('click', function () {
+    location.href = '/';
 });
 

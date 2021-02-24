@@ -14,26 +14,19 @@ let currentImageID = 0;
 let numberOfImages = () => memesList.length;
 
 function loadImageUrls() {
+
     fetch("https://api.imgflip.com/get_memes")
         .then(response => response.json())
         .then(result => {
-            for (let i  = 0;i< 10;i++) {
+            for (let i = 0; i < result['data']['memes'].length; i++) {
                 memesList[i] = result['data']['memes'][i];
-                /**
-                 * {
-                 *  "id":"181913649",
-                 *  "name":"Drake Hotline Bling",
-                 *  "url":"https:\/\/i.imgflip.com\/30b1gx.jpg",
-                 *  "width":1200,
-                 *  "height":1200,
-                 *  "box_count":2}, ......
-                 */
                 titleThn.innerText = memesList[i].name;
                 titleThn.style.fontWeight = "bold";
             }
             showImage(0)
         })
         .catch(error => console.log('error', error));
+
 }
 
 function showImage(num) {
@@ -42,7 +35,7 @@ function showImage(num) {
     displayImage.width = areaWidth;
     displayImage.height = meme.height * areaWidth / meme.width;
 
-    displayImage.onclick = function(){
+    displayImage.onclick = function () {
         modal.style.display = "block";
         modalImg.src = displayImage.src;
         captionText.innerHTML = meme.name;
@@ -51,15 +44,17 @@ function showImage(num) {
     displayImage.alt = meme.name;
     titleThn.innerText = displayImage.alt;
     titleThn.style.fontWeight = "bold";
-    
+
     // 获取 <span> 元素，设置关闭按钮
     const span = document.getElementsByClassName("close")[0];
     // 当点击 (x), 关闭弹窗
-    span.onclick = function() {
+    span.onclick = function () {
         modal.style.display = "none";
     }
+
 }
-function showSingleView(num){
+
+function showSingleView(num) {
     // 获取图片插入到弹窗 - 使用 "alt" 属性作为文本部分的内容
     let meme = memesList[num];
     modal.style.display = "block";
@@ -68,13 +63,13 @@ function showSingleView(num){
     // 获取 <span> 元素，设置关闭按钮
     var span = document.getElementsByClassName("close")[0];
     // 当点击 (x), 关闭弹窗
-    span.onclick = function() {
+    span.onclick = function () {
         modal.style.display = "none";
     }
 }
 
 //页面跳转至Generated memes
-viewGenButton.addEventListener('click', function(){
+viewGenButton.addEventListener('click', function () {
     location.href = '/generated-memes';
 });
 
@@ -88,13 +83,13 @@ nextButton.addEventListener('click', function () {
     showImage(currentImageID);
 });
 
-singleViewPreButton.addEventListener('click', function(){
+singleViewPreButton.addEventListener('click', function () {
     currentImageID = currentImageID === 0 ? numberOfImages() - 1 : currentImageID - 1;
     showImage(currentImageID);
     showSingleView(currentImageID);
 });
 
-singleViewNextButton.addEventListener('click', function(){
+singleViewNextButton.addEventListener('click', function () {
     currentImageID = currentImageID === numberOfImages() - 1 ? 0 : currentImageID + 1;
     showImage(currentImageID);
     showSingleView(currentImageID);

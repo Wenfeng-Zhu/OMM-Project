@@ -16,14 +16,11 @@ function upload2mongodb(element, name){
     html2canvas(element, {useCORS: true}).then(canvas => {
         canvas.toBlob(function (blob) {
             let formData = new FormData();
-            // let fileOfBlob = new File(blob,'file');
-            formData.set('file',blob);
+            formData.set('file',blob,name);
             //formData.delete('file');
             // for(var pair of formData.entries()) {
             //     alert(pair[0]+ ', '+ pair[1].type);
             // }
-
-            //saveAs(blob, name);
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'http://localhost:3000/upload', true);
             xhr.send(formData);
@@ -41,7 +38,13 @@ function upload2mongodb(element, name){
 generateButton.addEventListener('click', function () {
     let element = imageArea;
     let name = document.getElementById('inputText-title').value;
-    upload2mongodb(element, name);
+    const r = confirm("Are you sure to save Meme to the database?!");
+    if (r===true){
+        upload2mongodb(element, name);
+    }
+    else{
+    }
+
 });
 
 

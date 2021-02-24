@@ -1,28 +1,14 @@
-#container {
-    display: grid;
-    grid-template-columns: 17.5% 30% 35% 17.5%;
-    grid-column-gap: 20px;
-    height: 950px;
-}
 
-#slideShowImages {
+#genContainer{
     display: grid;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-template-rows: 95% 5%;
+    grid-template-rows: 5% 95%;
+    grid-column-gap: 20px;
+    height: 100%;
+    justify-items: center;
 }
 
 #imageArea{
-    position: relative;
-}
-
-#imageInform{
-    display: grid;
-    grid-template-rows: 20% 80%;
-}
-
-#currentImageID{
-    text-align:left;
+    width: 550px;
 }
 
 #buttonArea{
@@ -30,17 +16,7 @@
     grid-template-columns: 50% 50%;
 }
 
-#editArea {
-    display: grid;
-    grid-template-rows: 15% 42.5% 42.5%;
-}
-
-#overviewTmplArea{
-    background-color: darkorchid;
-    display: grid;
-    grid-template-rows: 30% 70%;
-}
-
-#thnDiv{
+#back{
     width: 100%;
-} 
+}
+

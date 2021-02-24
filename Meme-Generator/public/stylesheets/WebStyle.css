@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 17.5% 30% 35% 17.5%;
     grid-column-gap: 20px;
-    height: 950px;
+    height: 1000px;
 }
 
 
@@ -30,23 +30,46 @@
     grid-template-columns: 50% 50%;
 }
 
-#editArea {
+#EditArea {
     display: grid;
-    grid-template-rows: 15% 42.5% 42.5%;
+    grid-template-rows: 15% 55% 30%;
+}
+#sourceChoose{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.thnSingleDiv {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    border: 1px solid #000;
+    margin-right: 5px;
+}
+
+.thnSingleImg {
+    width: 100%;
+    height: 100%;
+}
+
+#thnDiv {
+    display: inline-block;
+    overflow: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    height: 100%;
+    width: 100%;
 }
 
 #overviewTmplArea{
-    background-color: darkorchid;
     display: grid;
-    grid-template-rows: 30% 70%;
 }
 
-#thnDiv{
-    width: 100%;
-}
+
 #textArea{
     display: grid;
-    grid-template-rows: 60% 10% 10% 10% 10%;
+    grid-template-rows: 80% 10% 10%;
 }
 
 #inputText{
@@ -158,28 +181,7 @@
     height: 5%;
 }
 
-.thnSingleDiv {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border: 1px solid #000;
-    margin-right: 5px;
-}
 
-.thnSingleImg {
-    width: 100%;
-    height: 100%;
-}
-
-#thnDiv {
-    display: inline-block;
-    overflow: scroll;
-    overflow-y: hidden;
-    white-space: nowrap;
-    height: 50px;
-    width: 500px;
-}
 
 #testButton{
     outline: none;

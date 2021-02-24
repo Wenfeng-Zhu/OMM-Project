@@ -10,6 +10,8 @@ const displayTexts = [];
 const addNewText = document.getElementById('addNewText');
 const applyButton = document.getElementById('apply');
 
+let initNum = 0;
+
 addNewText.addEventListener('click', function () {
     createInputBoxes(inputBoxes.length);
 });
@@ -20,11 +22,19 @@ applyButton.addEventListener('click', function () {
             createDisplayText(displayTexts.length);
         }
     }
+    else {
+        let temper =  displayTexts.length - inputBoxes.length;
+        for (let i = 0; i < temper; i++) {
+            imageArea.removeChild(displayTexts[displayTexts.length-1])
+            displayTexts.pop();
+        }
+    }
     updateDisplay();
+    draggable();
 });
 
 function inputInit(numOfInput) {
-
+    initNum = numOfInput;
     let input = document.createElement('input');
     input.height = 50;
     input.id = 'inputText-title';
@@ -35,14 +45,14 @@ function inputInit(numOfInput) {
         createInputBoxes(i);
         createDisplayText(i);
     }
-    draggable();
     updateDisplay();
+    draggable();
 }
 
 function createInputBoxes(i) {
     let inputUnit = document.createElement('div');
     inputUnit.style.display = 'grid';
-    inputUnit.style.gridTemplateColumns = '68% 8% 8% 8% 8%';
+    inputUnit.style.gridTemplateColumns = '64% 8% 8% 8% 8% 4%' ;
     inputUnit.style.alignItems = 'center';
     //inputUnit.style.justifyContent = 'center';
     //inputUnit.style.height = 60+'px';
@@ -95,6 +105,20 @@ function createInputBoxes(i) {
     inputColors[i] = inputColor;
     inputBolds[i] = inputBold;
     inputItalics[i] = inputItalic;
+
+    if (i>=initNum){
+        let deleteButton = document.createElement('button');
+        deleteButton.innerText = 'X';
+        inputUnit.append(deleteButton);
+        deleteButton.addEventListener('click',function (){
+            inputBoxes.splice(i,1);
+            inputSizes.splice(i,1);
+            inputColors.splice(i,1);
+            inputBolds.splice(i,1);
+            inputItalics.splice(i,1);
+            inputTextsArea.removeChild(inputUnit);
+        })
+    }
 }
 
 function createDisplayText(i) {
@@ -102,7 +126,7 @@ function createDisplayText(i) {
     displayText.id = 'displayText-' + (i + 1);
     displayText.style.position = 'absolute';
     displayText.style.zIndex = '2';
-    displayText.style.top = (40 + 350 * i) + 'px';
+    displayText.style.top = (40 + 200 * i) + 'px';
     displayText.style.fontFamily = 'impact';
     topDy[i] = 40 + 40 * i;
     displayText.style.left = 40 + 'px';
