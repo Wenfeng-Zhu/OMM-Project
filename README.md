@@ -52,3 +52,7 @@ LMU-WS2020/21-Online Multimedia-Memes Generator Web-Page Project
 ## Version 0.12
 * User can upload Memes to MongoDB
 * **02/23 Wenfeng Zhu**
+
+## Version 0.13
+* add a textbox-delete function/ complete generated interface/ adjust layout
+* **02/23 Wenfeng Zhu**
