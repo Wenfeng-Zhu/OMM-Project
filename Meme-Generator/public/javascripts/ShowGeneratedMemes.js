@@ -36,6 +36,10 @@ function showImage(num) {
     //displayImage.height = dbMemes[num].height * areaWidth / dbMemes[num].width;
     title.innerHTML = dbMemes[num].filename.toString();
     //alert(dbMemes[num].filename.toString())
+
+    displayImage.alt = dbMemes[num].filename;
+    titleGene.innerText = displayImage.alt;
+    titleGene.style.fontWeight = "bold";
 }
 
 preButton.addEventListener('click', function () {

@@ -1,3 +1,3 @@
 imageArea.append(displayImage);
 loadImageUrls();
-// setTimeout(showThumbnails, 100);
+setTimeout(showThumbnails, 100);
