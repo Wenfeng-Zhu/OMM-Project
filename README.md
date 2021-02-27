@@ -1,6 +1,8 @@
 # Online Multimedia
-LMU-WS2020/21-Online Multimedia-Memes Generator Web-Page Project
+
 # Introduction
+This is Memes Generator Web-Page Project of LMU-WS2020/21-Online Multimedia.
+The project is built through the [express](https://expressjs.com/) and use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/lp/try2-de?utm_source=google&utm_campaign=gs_emea_germany_search_core_brand_atlas_desktop&utm_term=mongodb%20atlas&utm_medium=cpc_paid_search&utm_ad=e&utm_ad_campaign_id=12212624524&gclid=Cj0KCQiA-OeBBhDiARIsADyBcE5Cuu9rodsrPe2UB2ddOsDB_JG_OdV-ZE8LMog316zN1W_VFpSY8MwaAlK2EALw_wcB) as a remote database of the website。
 
 ### Team Member:
 - Wenfeng Zhu (Master of Human-Computer Interaction)
@@ -8,7 +10,24 @@ LMU-WS2020/21-Online Multimedia-Memes Generator Web-Page Project
 - Yukun Chen (Master of Computer Science)
 - Shuaicong Wu (Master of Computer Science)
 
+### Install:
+
+This project uses [node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/). Go check them out if you don't have them locally installed.  
+You will need to go into this folder  
+ ```sh
+$ cd Meme-Generator 
+```
+ Then you will need to install the necessary packages.  
+ ```sh
+$ npm install
+```
+At last you should manually start this Express app.  
+```sh
+$ npm start
+```
+Then open the http://localhost:3000/ to use the web page of the project.
 # Version Log
+This part shows the general update process, including the update content, time and implementer. The specific task assignment and details can be viewed in the task document that contains the final submission.
 ## Version 0.01
 * Create the Project and design the layout  
 * **11/27 Wenfeng Zhu**
